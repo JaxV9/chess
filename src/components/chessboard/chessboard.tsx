@@ -1,14 +1,11 @@
 "use client";
-import { useEffect, useState } from "react";
 import { Square } from "../square/square";
 import { ChessboardInfos } from "../chessboardInfos/chessboardInfos";
 
 
 export const Chessboard = () => {
 
-    const [square, setSquare] = useState<number[]>(
-        Array.from({ length: 64 }, (_, i) => i + 1)
-    );
+    const square = Array.from({ length: 64 }, (_, i) => i + 1);
 
     return (
         <>

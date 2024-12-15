@@ -27,4 +27,12 @@
 
 .chessboard-vertical-infos > div, .chessboard-horizontal-infos > div {
     margin: auto;
+    font-size: 16px;
+}
+
+@media (max-width: 500px) {
+    .chessboard-vertical-infos > div, .chessboard-horizontal-infos > div {
+        margin: auto;
+        font-size: 12px;
+    }
 }

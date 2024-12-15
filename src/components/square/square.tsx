@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+
 
 type SquarePropsType = {
     elementProps: number,
@@ -6,12 +6,11 @@ type SquarePropsType = {
 
 export const Square = ({elementProps}: SquarePropsType) => {
 
-    const [name, setName] = useState<string>("")
 
     const colorManager = (element: number) => {
         let theme: string = '';
-        let currentLine: number = Number.isInteger(element / 8) ? element / 8 - 1 : Math.floor(element / 8);
-        let pairLine: boolean = currentLine % 2 == 0
+        const currentLine: number = Number.isInteger(element / 8) ? element / 8 - 1 : Math.floor(element / 8);
+        const pairLine: boolean = currentLine % 2 == 0
 
         if (pairLine && element % 2 !== 0) {
             theme = "clear"
