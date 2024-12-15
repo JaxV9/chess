@@ -1,8 +1,12 @@
+import { useEffect, useState } from "react";
+
 type SquarePropsType = {
     elementProps: number,
 }
 
 export const Square = ({elementProps}: SquarePropsType) => {
+
+    const [name, setName] = useState<string>("")
 
     const colorManager = (element: number) => {
         let theme: string = '';
@@ -10,16 +14,16 @@ export const Square = ({elementProps}: SquarePropsType) => {
         let pairLine: boolean = currentLine % 2 == 0
 
         if (pairLine && element % 2 !== 0) {
-            theme = "dark"
+            theme = "clear"
         }
         if (pairLine && element % 2 == 0) {
-            theme = "clear"
+            theme = "dark"
         }
         if (!pairLine && element % 2 !== 0) {
-            theme = "clear"
+            theme = "dark"
         }
         if (!pairLine && element % 2 == 0) {
-            theme = "dark"
+            theme = "clear"
         }
 
         return 'square ' + theme;

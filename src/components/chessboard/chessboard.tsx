@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { Square } from "../square/square";
+import { ChessboardInfos } from "../chessboardInfos/chessboardInfos";
 
 
 export const Chessboard = () => {
@@ -20,6 +21,7 @@ export const Chessboard = () => {
                             ))
                         }
                     </div>
+                    <ChessboardInfos />
                 </div>
             </section>
         </>

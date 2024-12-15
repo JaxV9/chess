@@ -12,6 +12,7 @@
     width: 850px;
     border-radius: 4px;
     display: flex;
+    position: relative;
 }
 
 .chessboard-content {
@@ -19,7 +20,7 @@
     width: 92%;
     height: 92%;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: repeat(8, 1fr);
     background-color: red;
 }

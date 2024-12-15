@@ -1,0 +1,30 @@
+
+.chessboard-vertical-infos {
+    color: white;
+    height: 92%;
+    width: 4%;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    bottom: 50%;
+    margin-top: auto;
+    margin-bottom: auto;
+    display: grid;
+    grid-template-rows: repeat(8, 1fr);
+}
+
+.chessboard-horizontal-infos {
+    color: white;
+    height: 4%;
+    width: 92%;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+}
+
+.chessboard-vertical-infos > div, .chessboard-horizontal-infos > div {
+    margin: auto;
+}
