@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+
 
 type SquarePropsType = {
     elementProps: number,
@@ -6,7 +6,6 @@ type SquarePropsType = {
 
 export const Square = ({elementProps}: SquarePropsType) => {
 
-    const [name, setName] = useState<string>("")
 
     const colorManager = (element: number) => {
         let theme: string = '';

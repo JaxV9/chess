@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Square } from "../square/square";
 import { ChessboardInfos } from "../chessboardInfos/chessboardInfos";
 
