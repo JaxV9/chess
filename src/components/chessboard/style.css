@@ -1,0 +1,25 @@
+.chessboard-container {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    height: 100vh;
+}
+
+.chessboard-body {
+    margin: auto;
+    background-color: #84240c;
+    height: 850px;
+    width: 850px;
+    border-radius: 4px;
+    display: flex;
+}
+
+.chessboard-content {
+    margin: auto;
+    width: 92%;
+    height: 92%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    background-color: red;
+}
