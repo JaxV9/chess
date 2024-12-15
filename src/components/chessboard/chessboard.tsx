@@ -1,5 +1,4 @@
 "use client";
-import { useState } from "react";
 import { Square } from "../square/square";
 import { ChessboardInfos } from "../chessboardInfos/chessboardInfos";
 
