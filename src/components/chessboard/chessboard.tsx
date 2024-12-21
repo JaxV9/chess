@@ -1,6 +1,6 @@
 "use client";
 import { Square } from "../square/square";
-import { ChessboardInfos } from "../chessboardInfos/chessboardInfos";
+import { ChessboardInfos } from "../ui/chessboardInfos/chessboardInfos";
 
 
 export const Chessboard = () => {
@@ -14,7 +14,7 @@ export const Chessboard = () => {
                     <div className="chessboard-content">
                         {
                             square.map((element, index) => (
-                                <Square key={index} elementProps={element}/>
+                                <Square key={index} indexProps={element}/>
                             ))
                         }
                     </div>

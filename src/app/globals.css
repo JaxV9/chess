@@ -1,6 +1,7 @@
 @import url('../components/chessboard/style.css');
 @import url('../components/square/style.css');
-@import url('../components/chessboardInfos/style.css');
+@import url('../components/ui/chessboardInfos/style.css');
+@import url('../components/piece/style.css');
 
 html,
 body {

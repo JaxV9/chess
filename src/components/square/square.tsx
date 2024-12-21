@@ -1,11 +1,18 @@
+"use client";
+import { Piece } from "../piece/piece";
+import { ChessPiece, data, DataChessType } from "@/data/chess";
+import { PieceRole } from "@/constants/constants";
+import { useEffect, useState } from "react";
 
 
 type SquarePropsType = {
-    elementProps: number,
+    indexProps: number,
 }
 
-export const Square = ({elementProps}: SquarePropsType) => {
+export const Square = ({ indexProps }: SquarePropsType) => {
 
+    const allPieces: DataChessType = data;
+    const [currentPiece, setCurrentPiece] = useState<string | null>(null)
 
     const colorManager = (element: number) => {
         let theme: string = '';
@@ -24,14 +31,31 @@ export const Square = ({elementProps}: SquarePropsType) => {
         if (!pairLine && element % 2 == 0) {
             theme = "clear"
         }
-
         return 'square ' + theme;
     }
 
+    useEffect(() => {
+        Object.values(PieceRole).map((piece) => {
+            const currentPiece = allPieces[piece];
+            currentPiece.map((element: ChessPiece) => {
+                if(element.pos === indexProps) {
+                    setCurrentPiece(piece)
+                }
+            });
+        })
+    },[allPieces, indexProps])
+
+    useEffect(() => {
+        console.log(currentPiece)
+    },[currentPiece])
+
     return (
         <>
-            <div className={colorManager(elementProps)}>
-                {elementProps}
+            <div className={colorManager(indexProps)}>
+                {currentPiece ?
+                    <Piece role={currentPiece} />
+                    : null
+                }
             </div>
         </>
     )
