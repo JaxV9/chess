@@ -13,7 +13,7 @@ import rookBlack from "../../assets/pieces/rook-black.svg";
 import rookWhite from "../../assets/pieces/rook-white.svg"
 
 type PiecePropsType = {
-    role: string
+    role: string | null
 }
 
 export const Piece = ({ role }: PiecePropsType) => {
@@ -34,6 +34,11 @@ export const Piece = ({ role }: PiecePropsType) => {
     }
 
     const getCurrentRole = () => {
+        
+        if(role === null){
+            return null
+        }
+        
         const imageSrc = roles[role];
 
         if (!imageSrc) {
