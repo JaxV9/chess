@@ -1,10 +1,12 @@
+import { Piece } from "../piece/piece";
 
 
 type SquarePropsType = {
     elementProps: number,
+    piece: string | null
 }
 
-export const Square = ({elementProps}: SquarePropsType) => {
+export const Square = ({ elementProps, piece }: SquarePropsType) => {
 
 
     const colorManager = (element: number) => {
@@ -31,7 +33,10 @@ export const Square = ({elementProps}: SquarePropsType) => {
     return (
         <>
             <div className={colorManager(elementProps)}>
-                {elementProps}
+                {piece !== null ?
+                    <Piece role={piece} />
+                    : null
+                }
             </div>
         </>
     )
