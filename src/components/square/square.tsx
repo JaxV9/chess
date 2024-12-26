@@ -1,61 +1,36 @@
 "use client";
 import { Piece } from "../piece/piece";
-import { ChessPiece, data, DataChessType } from "@/data/chess";
-import { PieceRole } from "@/constants/constants";
-import { useEffect, useState } from "react";
-
+import { ChessPiece } from "@/data/chess";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { ChessBoardDomain } from "@/domain/chessboard/chessboard";
 
 type SquarePropsType = {
     indexProps: number,
+    allPiecesProps: ChessPiece[],
+    setAllPiecesProps: Dispatch<SetStateAction<ChessPiece[]>>
 }
 
-export const Square = ({ indexProps }: SquarePropsType) => {
+export const Square = ({ indexProps, allPiecesProps, setAllPiecesProps }: SquarePropsType) => {
 
-    const allPieces: DataChessType = data;
-    const [currentPiece, setCurrentPiece] = useState<string | null>(null)
-
-    const colorManager = (element: number) => {
-        let theme: string = '';
-        const currentLine: number = Number.isInteger(element / 8) ? element / 8 - 1 : Math.floor(element / 8);
-        const pairLine: boolean = currentLine % 2 == 0
-
-        if (pairLine && element % 2 !== 0) {
-            theme = "clear"
-        }
-        if (pairLine && element % 2 == 0) {
-            theme = "dark"
-        }
-        if (!pairLine && element % 2 !== 0) {
-            theme = "dark"
-        }
-        if (!pairLine && element % 2 == 0) {
-            theme = "clear"
-        }
-        return 'square ' + theme;
-    }
+    const [currentPiece, setCurrentPiece] = useState<ChessPiece | null>(null)
 
     useEffect(() => {
-        Object.values(PieceRole).map((piece) => {
-            const currentPiece = allPieces[piece];
-            currentPiece.map((element: ChessPiece) => {
-                if(element.pos === indexProps) {
-                    setCurrentPiece(piece)
-                }
-            });
-        })
-    },[allPieces, indexProps])
-
-    useEffect(() => {
-        console.log(currentPiece)
-    },[currentPiece])
+        const pieceOfTheSquare: ChessPiece | undefined = allPiecesProps.find(element => element.pos === indexProps)
+        if(pieceOfTheSquare){
+            setCurrentPiece(pieceOfTheSquare)
+        }
+        else {
+            setCurrentPiece(null)
+        }
+    },[allPiecesProps, indexProps])
 
     return (
         <>
-            <div className={colorManager(indexProps)}>
-                {currentPiece ?
-                    <Piece role={currentPiece} />
-                    : null
-                }
+            <div className={ChessBoardDomain.colorManager(indexProps)}>
+                    {currentPiece ?
+                        <Piece currentPieceProps={currentPiece} setAllPiecesProps={setAllPiecesProps} />
+                        : null
+                    }
             </div>
         </>
     )
