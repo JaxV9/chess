@@ -13,14 +13,14 @@ import rookBlack from "../../assets/pieces/rook-black.svg";
 import rookWhite from "../../assets/pieces/rook-white.svg"
 import { Dispatch, SetStateAction } from "react";
 import { ChessPiece } from "@/data/chess";
-import { PawnBlackDomain } from "@/domain/pieces/pawn";
+import { PawnDomain } from "@/domain/pieces/pawn";
 
 type PiecePropsType = {
     currentPieceProps: ChessPiece,
     setAllPiecesProps: Dispatch<SetStateAction<ChessPiece[]>>,
 }
 
-export const Piece = ({ currentPieceProps, setAllPiecesProps}: PiecePropsType) => {
+export const Piece = ({ currentPieceProps, setAllPiecesProps }: PiecePropsType) => {
 
     const roles: Record<string, string> = {
         "pawn_black": pawnBlack.src,
@@ -51,11 +51,17 @@ export const Piece = ({ currentPieceProps, setAllPiecesProps}: PiecePropsType) =
 
     const moveForward = async () => {
 
-        setAllPiecesProps(prev =>
-            prev.map(piece =>
-                piece.id === currentPieceProps.id ? { ...piece, pos: PawnBlackDomain.forwardBlack(currentPieceProps.pos) } : piece
+        const nextPos = PawnDomain.forward(currentPieceProps.pos, currentPieceProps.color)
+
+        if (nextPos) {
+            setAllPiecesProps(prev =>
+                prev.map(piece =>
+                    piece.id === currentPieceProps.id ?
+                        { ...piece, pos: nextPos }
+                        : piece
+                )
             )
-        )
+        }
     }
 
 

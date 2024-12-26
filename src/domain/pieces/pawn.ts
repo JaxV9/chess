@@ -1,11 +1,12 @@
-export class PawnBlackDomain {
+export class PawnDomain {
     constructor() {}
 
-    public static forwardBlack(index: number) {
-        return index +8;
-    }
-
-    public static forwardWhite(index: number) {
-        return index -8;
+    public static forward(index: number, color: string) {
+        if(color === "black"){
+            return index +8;
+        }
+        if(color === "white"){
+            return index -8;
+        }
     }
 }
