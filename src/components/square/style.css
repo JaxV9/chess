@@ -27,3 +27,7 @@
 .preview {
     background-color: #79b567;
 }
+
+.preview-conflict {
+    background-color: red;
+}
