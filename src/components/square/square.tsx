@@ -44,9 +44,7 @@ export const Square = ({ indexProps, allPiecesProps, setAllPiecesProps,
         }
     }
     const clearPreview = () => {
-        if(currentPiece){
-            clearPreviewProps()
-        }
+        clearPreviewProps()
     }
 
     useEffect(() => {
@@ -63,10 +61,14 @@ export const Square = ({ indexProps, allPiecesProps, setAllPiecesProps,
         previewedSquareProps?.map(element => {
             if(element === indexProps){
                 setPreviewed(true)
-            } else {
+            }
+            if(element !== indexProps){
                 setPreviewed(false)
             }
         })
+        if(previewedSquareProps === null){
+            setPreviewed(false)
+        }
     },[previewedSquareProps, indexProps])
 
     return (
