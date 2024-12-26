@@ -11,12 +11,19 @@ import knightBlack from "../../assets/pieces/knight-black.svg";
 import knightWhite from "../../assets/pieces/knight-white.svg";
 import rookBlack from "../../assets/pieces/rook-black.svg";
 import rookWhite from "../../assets/pieces/rook-white.svg"
+import { Dispatch, SetStateAction } from "react";
+import { ChessPiece } from "@/data/chess";
+import { PawnBlackDomain } from "@/domain/pieces/pawn";
 
 type PiecePropsType = {
-    role: string | null
+    role: string | null,
+    currentPosProps: number,
+    allPiecesProps: ChessPiece[],
+    currentIdProps: string | null,
+    setAllPiecesProps: Dispatch<SetStateAction<ChessPiece[]>>,
 }
 
-export const Piece = ({ role }: PiecePropsType) => {
+export const Piece = ({ role, setAllPiecesProps, currentIdProps, currentPosProps }: PiecePropsType) => {
 
     const roles: Record<string, string> = {
         "pawn_black": pawnBlack.src,
@@ -34,11 +41,9 @@ export const Piece = ({ role }: PiecePropsType) => {
     }
 
     const getCurrentRole = () => {
-        
-        if(role === null){
+        if (role === null) {
             return null
         }
-        
         const imageSrc = roles[role];
 
         if (!imageSrc) {
@@ -47,11 +52,21 @@ export const Piece = ({ role }: PiecePropsType) => {
         return imageSrc
     }
 
+    const moveForward = async () => {
+
+        setAllPiecesProps(prev =>
+            prev.map(piece =>
+                piece.id === currentIdProps ? { ...piece, pos: PawnBlackDomain.forwardBlack(currentPosProps) } : piece
+            )
+        )
+    }
+
+
     return (
         <>
             {
                 getCurrentRole() !== null ?
-                    <div className="piece" style={{ backgroundImage: `url(${getCurrentRole()})` }}></div>
+                    <div onClick={moveForward} className="piece" style={{ backgroundImage: `url(${getCurrentRole()})` }}></div>
                     :
                     null
             }
