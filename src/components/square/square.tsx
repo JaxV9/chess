@@ -2,7 +2,6 @@
 import { Piece } from "../piece/piece";
 import { ChessPiece } from "@/data/chess";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { ChessBoardDomain } from "@/domain/chessboard/chessboard";
 import { PawnDomain } from "@/domain/pieces/pawn";
 
 type SquarePropsType = {
@@ -11,14 +10,16 @@ type SquarePropsType = {
     setAllPiecesProps: Dispatch<SetStateAction<ChessPiece[]>>,
     getPreviewedSquareProps: (index: number, color: string) => void,
     clearPreviewProps: () => void,
-    previewedSquareProps: number[] | null
+    previewedSquareProps: number[] | null,
+    colorManagerProps: (index: number, isPreviewed: boolean, isConflictPreview: boolean) => string
 }
 
 export const Square = ({ indexProps, allPiecesProps, setAllPiecesProps,
-    getPreviewedSquareProps, clearPreviewProps, previewedSquareProps }: SquarePropsType) => {
+    getPreviewedSquareProps, clearPreviewProps, previewedSquareProps, colorManagerProps }: SquarePropsType) => {
 
     const [currentPiece, setCurrentPiece] = useState<ChessPiece | null>(null)
-    const [isPreviewed, setPreviewed] = useState<boolean>(false)
+    const [isPreviewed, setIsPreviewed] = useState<boolean>(false)
+    const [isConflictPreview, setIsConflictPreview] = useState<boolean>(false)
 
     const moveForward = async () => {
         if (!currentPiece) {
@@ -59,22 +60,25 @@ export const Square = ({ indexProps, allPiecesProps, setAllPiecesProps,
 
     useEffect(() => {
         previewedSquareProps?.map(element => {
-            if(element === indexProps){
-                setPreviewed(true)
-            }
-            if(element !== indexProps){
-                setPreviewed(false)
+            if(element === indexProps && !currentPiece?.role){
+                setIsPreviewed(true)
+                setIsConflictPreview(false)
+            } else if(element === indexProps && currentPiece?.role){
+                setIsPreviewed(true)
+                setIsConflictPreview(true)
+            } else if(element !== indexProps){
+                setIsPreviewed(false)
             }
         })
         if(previewedSquareProps === null){
-            setPreviewed(false)
+            setIsPreviewed(false)
         }
-    },[previewedSquareProps, indexProps])
+    },[previewedSquareProps, indexProps, currentPiece])
 
     return (
         <>
             <div onMouseEnter={preview} onMouseLeave={clearPreview}
-            onClick={moveForward} className={ChessBoardDomain.colorManager(indexProps, isPreviewed)}>
+            onClick={moveForward} className={colorManagerProps(indexProps, isPreviewed, isConflictPreview)}>
                 {currentPiece ?
                     <Piece currentPieceProps={currentPiece} />
                     : null
