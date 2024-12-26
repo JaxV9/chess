@@ -16,14 +16,11 @@ import { ChessPiece } from "@/data/chess";
 import { PawnBlackDomain } from "@/domain/pieces/pawn";
 
 type PiecePropsType = {
-    role: string | null,
-    currentPosProps: number,
-    allPiecesProps: ChessPiece[],
-    currentIdProps: string | null,
+    currentPieceProps: ChessPiece,
     setAllPiecesProps: Dispatch<SetStateAction<ChessPiece[]>>,
 }
 
-export const Piece = ({ role, setAllPiecesProps, currentIdProps, currentPosProps }: PiecePropsType) => {
+export const Piece = ({ currentPieceProps, setAllPiecesProps}: PiecePropsType) => {
 
     const roles: Record<string, string> = {
         "pawn_black": pawnBlack.src,
@@ -41,10 +38,10 @@ export const Piece = ({ role, setAllPiecesProps, currentIdProps, currentPosProps
     }
 
     const getCurrentRole = () => {
-        if (role === null) {
+        if (currentPieceProps.role === null) {
             return null
         }
-        const imageSrc = roles[role];
+        const imageSrc = roles[currentPieceProps.role];
 
         if (!imageSrc) {
             return null;
@@ -56,7 +53,7 @@ export const Piece = ({ role, setAllPiecesProps, currentIdProps, currentPosProps
 
         setAllPiecesProps(prev =>
             prev.map(piece =>
-                piece.id === currentIdProps ? { ...piece, pos: PawnBlackDomain.forwardBlack(currentPosProps) } : piece
+                piece.id === currentPieceProps.id ? { ...piece, pos: PawnBlackDomain.forwardBlack(currentPieceProps.pos) } : piece
             )
         )
     }

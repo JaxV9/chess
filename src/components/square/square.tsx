@@ -12,29 +12,23 @@ type SquarePropsType = {
 
 export const Square = ({ indexProps, allPiecesProps, setAllPiecesProps }: SquarePropsType) => {
 
-
-    const [currentPieceRole, setCurrentPieceRole] = useState<string | null>(null)
-    const [currentPieceId, setCurrentPieceId] = useState<string | null>(null)
+    const [currentPiece, setCurrentPiece] = useState<ChessPiece | null>(null)
 
     useEffect(() => {
         const pieceOfTheSquare: ChessPiece | undefined = allPiecesProps.find(element => element.pos === indexProps)
         if(pieceOfTheSquare){
-            setCurrentPieceRole(pieceOfTheSquare.role)
-            setCurrentPieceId(pieceOfTheSquare.id)
+            setCurrentPiece(pieceOfTheSquare)
         }
         else {
-            setCurrentPieceRole(null)
-            setCurrentPieceId(null)
+            setCurrentPiece(null)
         }
     },[allPiecesProps, indexProps])
 
     return (
         <>
             <div className={ChessBoardDomain.colorManager(indexProps)}>
-                    {currentPieceRole ?
-                        <Piece role={currentPieceRole} currentPosProps={indexProps}
-                            allPiecesProps={allPiecesProps} setAllPiecesProps={setAllPiecesProps}
-                            currentIdProps={currentPieceId} />
+                    {currentPiece ?
+                        <Piece currentPieceProps={currentPiece} setAllPiecesProps={setAllPiecesProps} />
                         : null
                     }
             </div>
