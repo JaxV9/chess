@@ -29,7 +29,7 @@ export const Square = ({ indexProps, allPiecesProps, setAllPiecesProps,
         if (!nextPos) {
             return null
         }
-
+        clearPreviewProps()
         setAllPiecesProps(prev =>
             prev.map(piece =>
                 piece.id === currentPiece.id ?
@@ -43,9 +43,6 @@ export const Square = ({ indexProps, allPiecesProps, setAllPiecesProps,
         if(currentPiece){
             getPreviewedSquareProps(indexProps, currentPiece.color);
         }
-    }
-    const clearPreview = () => {
-        clearPreviewProps()
     }
 
     useEffect(() => {
@@ -77,7 +74,7 @@ export const Square = ({ indexProps, allPiecesProps, setAllPiecesProps,
 
     return (
         <>
-            <div onMouseEnter={preview} onMouseLeave={clearPreview}
+            <div onMouseEnter={preview} onMouseLeave={clearPreviewProps}
             onClick={moveForward} className={colorManagerProps(indexProps, isPreviewed, isConflictPreview)}>
                 {currentPiece ?
                     <Piece currentPieceProps={currentPiece} />
