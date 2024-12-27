@@ -1,7 +1,9 @@
 "use client";
-import { useEffect, useState } from "react";
 import { Piece } from "../piece/piece";
 import { ChessPiece } from "@/data/chess";
+import useCurrentPiece from "@/hooks/useCurrentPiece";
+import useSquarePreviewState from "@/hooks/useSquarePreviewState";
+import { useEffect } from "react";
 
 type SquarePropsType = {
     indexProps: number,
@@ -10,63 +12,46 @@ type SquarePropsType = {
     clearPreviewProps: () => void,
     previewedSquareProps: number[] | null,
     colorManagerProps: (index: number, isPreviewed: boolean, isConflictPreview: boolean) => string,
-    chessMoveProps: (squareIndex: number, currentPiece: ChessPiece | null) => void,
+    moveProps: (squareIndex: number, currentPiece: ChessPiece | null) => void,
+    moveIsValidProps: boolean | null
 }
 
 export const Square = ({ indexProps, allPiecesProps,
     getAllPreviewedSquaresProps, clearPreviewProps, previewedSquareProps, colorManagerProps,
-    chessMoveProps }: SquarePropsType) => {
+    moveProps, moveIsValidProps }: SquarePropsType) => {
 
-    const [currentPiece, setCurrentPiece] = useState<ChessPiece | null>(null)
-    const [isPreviewed, setIsPreviewed] = useState<boolean>(false)
-    const [isConflictPreview, setIsConflictPreview] = useState<boolean>(false)
+    const { currentPiece } = useCurrentPiece(allPiecesProps, indexProps)
+
+    const { isPreviewed, isConflictPreview, preview } = useSquarePreviewState(
+        indexProps,
+        currentPiece,
+        previewedSquareProps,
+        getAllPreviewedSquaresProps
+    )
 
     const chessMove = async () => {
-        if(currentPiece){
-            chessMoveProps(indexProps, currentPiece)
-        }else {
-            chessMoveProps(indexProps, null)
-        }
-    }
-
-    const preview = () => {
-        if(currentPiece){
-            getAllPreviewedSquaresProps(indexProps, currentPiece);
+        if (currentPiece) {
+            moveProps(indexProps, currentPiece)
+            preview()
+        } else {
+            moveProps(indexProps, currentPiece)
         }
     }
 
     useEffect(() => {
-        const pieceOfTheSquare: ChessPiece | undefined = allPiecesProps.find(element => element.pos === indexProps)
-        if (pieceOfTheSquare) {
-            setCurrentPiece(pieceOfTheSquare)
+        if (moveIsValidProps === true) {
+            clearPreviewProps()
         }
-        else {
-            setCurrentPiece(null)
-        }
-    }, [allPiecesProps, indexProps])
-
-    useEffect(() => {
-        const previews = previewedSquareProps?.find(element => element === indexProps)
-            if(previews && !currentPiece?.role){
-                setIsPreviewed(true)
-                setIsConflictPreview(false)
-            } else if(previews && currentPiece?.role){
-                setIsPreviewed(true)
-                setIsConflictPreview(true)
-            } else if(!previews){
-                setIsPreviewed(false)
-            }
-        if(previewedSquareProps === null){
-            setIsPreviewed(false)
-        }
-    },[previewedSquareProps, indexProps, currentPiece])
+    }, [moveIsValidProps, clearPreviewProps])
 
     return (
         <>
-            <div onMouseEnter={preview} onMouseLeave={clearPreviewProps} onClick={chessMove}
+            <div onClick={chessMove}
                 className={colorManagerProps(indexProps, isPreviewed, isConflictPreview)}>
                 {currentPiece ?
-                    <Piece currentPieceProps={currentPiece} />
+                    <div className="chess-piece-container">
+                        <Piece currentPieceProps={currentPiece} />
+                    </div>
                     : null
                 }
             </div>
