@@ -4,15 +4,15 @@ import { useMemo, useState } from "react"
 import { PieceRole } from "@/constants/constants"
 import { KnightDomain } from "@/domain/pieces/knight"
 
-const useSquarePreview = () => {
+const useSquaresPreview = () => {
     
     const pawnDomain = useMemo(() => new PawnDomain(), []);
     const knightDomain = new KnightDomain
 
     const [previewedSquare, setPreviewedSquare] = useState<number[] | null>(null)
 
+    //list all previewed square (in green)
     const getAllPreviewedSquares = async (index: number, chessPiece: ChessPiece) => {
-        
         switch(chessPiece.role){
             case PieceRole.pawn_black:
             case PieceRole.pawn_white:
@@ -23,6 +23,7 @@ const useSquarePreview = () => {
         }
         
     }
+
     const clearPreview = () => {
         setPreviewedSquare(null)
     }
@@ -34,4 +35,4 @@ const useSquarePreview = () => {
     };
 }
 
-export default useSquarePreview
+export default useSquaresPreview

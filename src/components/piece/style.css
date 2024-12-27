@@ -5,4 +5,5 @@
     background-repeat: no-repeat;
     background-size: cover;
     transition: all ease 0.2s;
+    margin: auto;
 }
