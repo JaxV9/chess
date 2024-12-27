@@ -1,12 +1,12 @@
 import { ChessPiece } from "@/data/chess"
 import { PawnDomain } from "@/domain/pieces/pawn"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { PieceRole } from "@/constants/constants"
 import { KnightDomain } from "@/domain/pieces/knight"
 
 const useSquarePreview = () => {
     
-    const pawnDomain = new PawnDomain
+    const pawnDomain = useMemo(() => new PawnDomain(), []);
     const knightDomain = new KnightDomain
 
     const [previewedSquare, setPreviewedSquare] = useState<number[] | null>(null)
