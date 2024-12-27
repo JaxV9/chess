@@ -4,7 +4,6 @@ export class KnightDomain {
     constructor() { }
 
     public checkMove(nextPos: number, chessPiece: ChessPiece) {
-
         switch (nextPos) {
             case chessPiece.pos + 16 - 1:
                 if(nextPos %8 === 0){
@@ -63,16 +62,34 @@ export class KnightDomain {
     public preview(index: number, chessPiece: ChessPiece) {
         if (chessPiece.color === "black" || chessPiece.color === "white") {
 
-            const previews = [
-                index + 16 - 1,
-                index + 16 + 1,
-                index - 16 - 1,
-                index - 16 + 1,
-                index + 2 - 8,
-                index + 2 + 8,
-                index - 2 - 8,
-                index - 2 + 8
-            ]
+            const previews = []
+
+            if(index %8 !== 1 && index %8 !== 2){
+                previews.push(
+                    index - 2 - 8,
+                    index - 2 + 8,
+                )
+            }
+            if(index %8 !== 1){
+                previews.push(
+                    index + 16 - 1,
+                    index - 16 - 1,
+                )
+            }
+
+            if(index %8 !== 0 && index %8 !== 7){
+                previews.push(
+                    index + 2 - 8,
+                    index + 2 + 8
+                )
+            }
+
+            if(index %8 !== 0){
+                previews.push(
+                    index + 16 + 1,
+                    index - 16 + 1
+                )
+            }
             return previews;
         } else {
             return null
