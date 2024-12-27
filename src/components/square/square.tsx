@@ -8,14 +8,16 @@ type SquarePropsType = {
     indexProps: number,
     allPiecesProps: ChessPiece[],
     setAllPiecesProps: Dispatch<SetStateAction<ChessPiece[]>>,
-    getPreviewedSquareProps: (index: number, color: string) => void,
+    getAllPreviewedSquaresProps: (index: number, chessPiece: ChessPiece) => void,
     clearPreviewProps: () => void,
     previewedSquareProps: number[] | null,
     colorManagerProps: (index: number, isPreviewed: boolean, isConflictPreview: boolean) => string
 }
 
 export const Square = ({ indexProps, allPiecesProps, setAllPiecesProps,
-    getPreviewedSquareProps, clearPreviewProps, previewedSquareProps, colorManagerProps }: SquarePropsType) => {
+    getAllPreviewedSquaresProps, clearPreviewProps, previewedSquareProps, colorManagerProps }: SquarePropsType) => {
+
+    const pawnDomain = new PawnDomain;
 
     const [currentPiece, setCurrentPiece] = useState<ChessPiece | null>(null)
     const [isPreviewed, setIsPreviewed] = useState<boolean>(false)
@@ -25,7 +27,7 @@ export const Square = ({ indexProps, allPiecesProps, setAllPiecesProps,
         if (!currentPiece) {
             return null
         }
-        const nextPos = PawnDomain.forward(currentPiece.pos, currentPiece.color)
+        const nextPos = pawnDomain.forward(currentPiece.pos, currentPiece.color)
         if (!nextPos) {
             return null
         }
@@ -41,7 +43,7 @@ export const Square = ({ indexProps, allPiecesProps, setAllPiecesProps,
 
     const preview = () => {
         if(currentPiece){
-            getPreviewedSquareProps(indexProps, currentPiece.color);
+            getAllPreviewedSquaresProps(indexProps, currentPiece);
         }
     }
 
@@ -56,17 +58,16 @@ export const Square = ({ indexProps, allPiecesProps, setAllPiecesProps,
     }, [allPiecesProps, indexProps])
 
     useEffect(() => {
-        previewedSquareProps?.map(element => {
-            if(element === indexProps && !currentPiece?.role){
+        const previews = previewedSquareProps?.find(element => element === indexProps)
+            if(previews && !currentPiece?.role){
                 setIsPreviewed(true)
                 setIsConflictPreview(false)
-            } else if(element === indexProps && currentPiece?.role){
+            } else if(previews && currentPiece?.role){
                 setIsPreviewed(true)
                 setIsConflictPreview(true)
-            } else if(element !== indexProps){
+            } else if(!previews){
                 setIsPreviewed(false)
             }
-        })
         if(previewedSquareProps === null){
             setIsPreviewed(false)
         }
