@@ -46,7 +46,6 @@ export const Piece = ({ currentPieceProps }: PiecePropsType) => {
         return imageSrc
     }
 
-
     return (
         <>
             {
