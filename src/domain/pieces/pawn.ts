@@ -1,14 +1,17 @@
+import { PieceRole } from "@/constants/constants";
 import { ChessPiece } from "@/data/chess";
 
 export class PawnDomain {
     constructor() {}
 
-    public forward(index: number, color: string) {
-        if(color === "black"){
-            return index +8;
-        }
-        if(color === "white"){
-            return index -8;
+
+    public checkMove(nextPos: number, chessPiece: ChessPiece){
+        if(nextPos === chessPiece.pos+8 && chessPiece.role === PieceRole.pawn_black){
+            return true
+        }else if (nextPos === chessPiece.pos-8 && chessPiece.role === PieceRole.pawn_white){
+            return true
+        }else {
+            return false
         }
     }
 
