@@ -2,10 +2,10 @@ import { PieceRole } from "@/constants/constants";
 import { ChessPiece } from "@/data/chess";
 import { KnightDomain } from "@/domain/pieces/knight";
 import { PawnDomain } from "@/domain/pieces/pawn";
-import { useEffect, useMemo, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 
 
-const useMove = () => {
+const useMove = (setAllPieces: Dispatch<SetStateAction<ChessPiece[]>>) => {
 
     const pawnDomain = useMemo(() => new PawnDomain(), []);
     const knightDomain = useMemo(() => new KnightDomain(), []);
@@ -17,23 +17,25 @@ const useMove = () => {
     const [chessMod, setChessMod] = useState<ChessPiece | null>(null)
     const [moveIsValid, setMoveIsValid] = useState<boolean | null>(null)
 
-    //Manage the click to choose the currentpiece and his next pos
-    const move = (squareIndex: number, piece: ChessPiece | null) => {
-
+    //Manage the click to choose the current piece and his next pos
+    const move = async (squareIndex: number, piece: ChessPiece | null) => {
+        if(piece !== null && currentPiece && piece.role !== currentPiece.role){
+            setFirstSquareTriggered(null)
+            setSecondSquareTriggered(null)
+            setNextPos(null)
+            setChessMod(null)
+            setMoveIsValid(null)
+        }
         if(!firstSquareTriggered && piece){
             setCurrentPiece(piece)
             return setFirstSquareTriggered(squareIndex)
-        }
-        if(firstSquareTriggered == secondSquareTriggered && !piece){
-            setSecondSquareTriggered(null)
-            return setSecondSquareTriggered(null)
         }
         if(firstSquareTriggered && !secondSquareTriggered && !piece){
             return setSecondSquareTriggered(squareIndex)
         }
     }
 
-    //Check if the initial pos and the next pos are clicked
+    //Check if the initial pos and the next pos are the same
     useEffect(() => {
         const egal = secondSquareTriggered == firstSquareTriggered
         if(secondSquareTriggered && firstSquareTriggered && egal){
@@ -43,10 +45,9 @@ const useMove = () => {
         }
         if(secondSquareTriggered && firstSquareTriggered && !egal){
             setNextPos(secondSquareTriggered)
-            setFirstSquareTriggered(null)
             setSecondSquareTriggered(null)
         }
-    },[secondSquareTriggered, firstSquareTriggered])
+    },[secondSquareTriggered, firstSquareTriggered, currentPiece])
 
     //Check if the player move is valid
     useEffect(() => {
@@ -54,19 +55,19 @@ const useMove = () => {
             switch(currentPiece?.role){
                 case PieceRole.pawn_black:
                 case PieceRole.pawn_white:
-                    setMoveIsValid(pawnDomain.checkMove(nextPos, currentPiece))
+                    return setMoveIsValid(pawnDomain.checkMove(nextPos, currentPiece))
                 case PieceRole.knight_black:
                 case PieceRole.knight_white:
-                    setMoveIsValid(knightDomain.checkMove(nextPos, currentPiece))
+                    return setMoveIsValid(knightDomain.checkMove(nextPos, currentPiece))
             }
-            // console.log(nextPos)
         }
     },[nextPos, currentPiece, pawnDomain, knightDomain])
 
 
-    //Mod the chess position
+    //Modify the chess position
     useEffect(() => {
         if(nextPos && currentPiece && moveIsValid === true){
+            console.log("move")
             setChessMod({
                 id: currentPiece.id,
                 role: currentPiece.role,
@@ -74,16 +75,36 @@ const useMove = () => {
                 pos: nextPos
             })
             setNextPos(null)
+            setFirstSquareTriggered(null)
             setCurrentPiece(null)
             setMoveIsValid(null)
         }
-    },[nextPos, currentPiece, moveIsValid])
+        if(nextPos && currentPiece && moveIsValid === false){
+            setNextPos(null)
+            setSecondSquareTriggered(null)
+            setMoveIsValid(null)
+        }
+    },[nextPos, currentPiece, moveIsValid, firstSquareTriggered])
+
+    useEffect(() => {
+        if (chessMod) {
+            setAllPieces(prev =>
+                prev.map(piece =>
+                    piece.id === chessMod.id ?
+                        { ...piece, pos: chessMod.pos }
+                        : piece
+                )
+            )
+            setChessMod(null)
+        }
+    }, [chessMod, setChessMod, setAllPieces])
 
     return {
         move,
         nextPos,
         chessMod,
-        setChessMod
+        setChessMod,
+        moveIsValid
     };
 }
 
