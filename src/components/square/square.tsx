@@ -13,20 +13,21 @@ type SquarePropsType = {
     previewedSquareProps: number[] | null,
     colorManagerProps: (index: number, isPreviewed: boolean, isConflictPreview: boolean) => string,
     moveProps: (squareIndex: number, currentPiece: ChessPiece | null) => void,
-    moveIsValidProps: boolean | null
+    moveIsValidProps: boolean | null,
+    moveStopProps: () => void
 }
 
 export const Square = ({ indexProps, allPiecesProps,
     getAllPreviewedSquaresProps, clearPreviewProps, previewedSquareProps, colorManagerProps,
-    moveProps, moveIsValidProps }: SquarePropsType) => {
+    moveProps, moveIsValidProps, moveStopProps }: SquarePropsType) => {
 
     const { currentPiece } = useCurrentPiece(allPiecesProps, indexProps)
 
-    const { isPreviewed, isConflictPreview, preview } = useSquarePreviewState(
+    const { isPreviewed, isConflictPreview, preview, samePiece, clearStates } = useSquarePreviewState(
         indexProps,
         currentPiece,
         previewedSquareProps,
-        getAllPreviewedSquaresProps
+        getAllPreviewedSquaresProps,
     )
 
     const chessMove = async () => {
@@ -43,6 +44,14 @@ export const Square = ({ indexProps, allPiecesProps,
             clearPreviewProps()
         }
     }, [moveIsValidProps, clearPreviewProps])
+
+    useEffect(() => {
+        if(samePiece === true){
+            clearStates()
+            clearPreviewProps()
+            moveStopProps()
+        }
+    },[samePiece, clearPreviewProps, clearStates, moveStopProps])
 
     return (
         <>
