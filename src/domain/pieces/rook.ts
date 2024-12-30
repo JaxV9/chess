@@ -1,8 +1,9 @@
+import { ChessPiece } from "@/data/chess";
 
 export class RookDomain {
     constructor() { }
 
-    public preview(index: number) {
+    private moves(index: number) {
         const lines: number[] = [];
         for(let i = index+8; i <= 64 && i >= 0; i+= 8){
             lines.push(i);
@@ -23,5 +24,20 @@ export class RookDomain {
         }
         
         return lines
+    }
+
+    public checkMove(nextPos: number, chessPiece: ChessPiece) {
+
+        const results = this.moves(chessPiece.pos)
+
+        if(results.includes(nextPos)){
+            return true
+        } else {
+            return false
+        }
+    }
+
+    public preview(index: number) {
+        return this.moves(index)
     }
 }
