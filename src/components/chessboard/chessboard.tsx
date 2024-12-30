@@ -15,7 +15,7 @@ export const Chessboard = () => {
     const square = Array.from({ length: 64 }, (_, i) => i + 1);
     const [allPieces, setAllPieces] = useState<ChessPiece[]>(data);
 
-    const { move, moveIsValid } = useMove(setAllPieces);
+    const { move, moveStop, moveIsValid } = useMove(setAllPieces);
     const { colorManager } = useSquareColor();
 
     return (
@@ -32,6 +32,7 @@ export const Chessboard = () => {
                                     clearPreviewProps={clearPreview}
                                     colorManagerProps={colorManager}
                                     moveProps={move}
+                                    moveStopProps={moveStop}
                                     moveIsValidProps={moveIsValid}
                                     allPiecesProps={allPieces} />
                             ))
