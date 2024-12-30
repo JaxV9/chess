@@ -2,6 +2,7 @@ import { PieceRole } from "@/constants/constants";
 import { ChessPiece } from "@/data/chess";
 import { KnightDomain } from "@/domain/pieces/knight";
 import { PawnDomain } from "@/domain/pieces/pawn";
+import { RookDomain } from "@/domain/pieces/rook";
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 
 
@@ -9,6 +10,7 @@ const useMove = (setAllPieces: Dispatch<SetStateAction<ChessPiece[]>>) => {
 
     const pawnDomain = useMemo(() => new PawnDomain(), []);
     const knightDomain = useMemo(() => new KnightDomain(), []);
+    const rookDomain = useMemo(() => new RookDomain(), []);
     
     const [currentPiece, setCurrentPiece] = useState<ChessPiece | null>(null)
     const [firstSquareTriggered, setFirstSquareTriggered] = useState<number | null>(null)
@@ -70,9 +72,16 @@ const useMove = (setAllPieces: Dispatch<SetStateAction<ChessPiece[]>>) => {
                 case PieceRole.knight_black:
                 case PieceRole.knight_white:
                     return setMoveIsValid(knightDomain.checkMove(nextPos, currentPiece))
+                case PieceRole.rook_black:
+                case PieceRole.rook_white:
+                    return setMoveIsValid(rookDomain.checkMove(nextPos, currentPiece))
             }
         }
-    },[nextPos, currentPiece, pawnDomain, knightDomain])
+    },[
+        nextPos, currentPiece,
+        pawnDomain, knightDomain,
+        rookDomain
+    ])
 
 
     //Modify the chess position
