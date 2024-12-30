@@ -6,17 +6,30 @@ const useSquarePreviewState = (
     index: number,
     currentPiece: ChessPiece | null,
     previewedSquare: number[] | null,
-    getAllPreviewedSquares: (index: number, chessPiece: ChessPiece) => void
+    getAllPreviewedSquares: (index: number, chessPiece: ChessPiece) => void,
 
 ) => {
 
+    const [piecePreviewed, setPiecePreviewed] = useState<ChessPiece | null>(null)
+    const [samePiece, setSamePiece] = useState<boolean>(false)
     const [isPreviewed, setIsPreviewed] = useState<boolean>(false)
     const [isConflictPreview, setIsConflictPreview] = useState<boolean>(false);
 
-    const preview = () => {
+    const preview = async () => {
+        if(currentPiece === piecePreviewed){
+            setSamePiece(true)
+        }
         if (currentPiece) {
+            setPiecePreviewed(currentPiece)
             getAllPreviewedSquares(index, currentPiece);
         }
+    }
+
+    const clearStates = async () => {
+        setSamePiece(false)
+        setPiecePreviewed(null)
+        setIsPreviewed(false)
+        setIsConflictPreview(false)
     }
 
     useEffect(() => {
@@ -38,7 +51,9 @@ const useSquarePreviewState = (
     return {
         isPreviewed,
         isConflictPreview,
-        preview
+        preview,
+        samePiece,
+        clearStates
     };
 }
 

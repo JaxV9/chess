@@ -17,18 +17,29 @@ const useMove = (setAllPieces: Dispatch<SetStateAction<ChessPiece[]>>) => {
     const [chessMod, setChessMod] = useState<ChessPiece | null>(null)
     const [moveIsValid, setMoveIsValid] = useState<boolean | null>(null)
 
+    const moveStop = () => {
+        setFirstSquareTriggered(null)
+        setSecondSquareTriggered(null)
+        setNextPos(null)
+        setCurrentPiece(null)
+        setChessMod(null)
+        setMoveIsValid(null)
+    }
+
+    const choosePieceToMove = (squareIndex: number, piece: ChessPiece | null) => {
+        setCurrentPiece(piece)
+        setFirstSquareTriggered(squareIndex)
+    }
+
     //Manage the click to choose the current piece and his next pos
     const move = async (squareIndex: number, piece: ChessPiece | null) => {
-        if(piece !== null && currentPiece && piece.role !== currentPiece.role){
-            setFirstSquareTriggered(null)
-            setSecondSquareTriggered(null)
-            setNextPos(null)
-            setChessMod(null)
-            setMoveIsValid(null)
+        if(piece !== null && currentPiece && piece.id !== currentPiece.id){
+            moveStop()
+            setCurrentPiece(piece)
+            setFirstSquareTriggered(squareIndex)
         }
         if(!firstSquareTriggered && piece){
-            setCurrentPiece(piece)
-            return setFirstSquareTriggered(squareIndex)
+            return choosePieceToMove(squareIndex, piece)
         }
         if(firstSquareTriggered && !secondSquareTriggered && !piece){
             return setSecondSquareTriggered(squareIndex)
@@ -67,7 +78,6 @@ const useMove = (setAllPieces: Dispatch<SetStateAction<ChessPiece[]>>) => {
     //Modify the chess position
     useEffect(() => {
         if(nextPos && currentPiece && moveIsValid === true){
-            console.log("move")
             setChessMod({
                 id: currentPiece.id,
                 role: currentPiece.role,
@@ -104,7 +114,8 @@ const useMove = (setAllPieces: Dispatch<SetStateAction<ChessPiece[]>>) => {
         nextPos,
         chessMod,
         setChessMod,
-        moveIsValid
+        moveIsValid,
+        moveStop
     };
 }
 
