@@ -19,7 +19,6 @@ export class RookDomain {
         }
         const right = index% 8 == 0 ? index : index + (8 - (index % 8))
         for(let i = index+1; i >= index+1 && i <= right; i+=1){
-            console.log("ici")
             lines.push(i)
         }
         
