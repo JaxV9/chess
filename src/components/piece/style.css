@@ -6,4 +6,5 @@
     background-size: cover;
     transition: all ease 0.2s;
     margin: auto;
+    z-index: 2;
 }

@@ -2,6 +2,7 @@
 import { Piece } from "../piece/piece";
 import { ChessPiece } from "@/data/chess";
 import useCurrentPiece from "@/hooks/useCurrentPiece";
+import useSquareColor from "@/hooks/useSquareColor";
 import useSquarePreviewState from "@/hooks/useSquarePreviewState";
 import { useEffect } from "react";
 
@@ -11,17 +12,18 @@ type SquarePropsType = {
     getAllPreviewedSquaresProps: (index: number, chessPiece: ChessPiece) => void,
     clearPreviewProps: () => void,
     previewedSquareProps: number[] | null,
-    colorManagerProps: (index: number, isPreviewed: boolean, isConflictPreview: boolean) => string,
     moveProps: (squareIndex: number, currentPiece: ChessPiece | null) => void,
     moveIsValidProps: boolean | null,
     moveStopProps: () => void
 }
 
 export const Square = ({ indexProps, allPiecesProps,
-    getAllPreviewedSquaresProps, clearPreviewProps, previewedSquareProps, colorManagerProps,
+    getAllPreviewedSquaresProps, clearPreviewProps, previewedSquareProps,
     moveProps, moveIsValidProps, moveStopProps }: SquarePropsType) => {
 
     const { currentPiece } = useCurrentPiece(allPiecesProps, indexProps)
+
+    const { colorManager, previewManager } = useSquareColor();
 
     const { isPreviewed, isConflictPreview, preview, samePiece, clearStates } = useSquarePreviewState(
         indexProps,
@@ -46,23 +48,24 @@ export const Square = ({ indexProps, allPiecesProps,
     }, [moveIsValidProps, clearPreviewProps])
 
     useEffect(() => {
-        if(samePiece === true){
+        if (samePiece === true) {
             clearStates()
             clearPreviewProps()
             moveStopProps()
         }
-    },[samePiece, clearPreviewProps, clearStates, moveStopProps])
+    }, [samePiece, clearPreviewProps, clearStates, moveStopProps])
 
     return (
         <>
-            <div onClick={chessMove}
-                className={colorManagerProps(indexProps, isPreviewed, isConflictPreview)}>
+            <div onClick={chessMove} className={colorManager(indexProps)}>
                 {currentPiece ?
                     <div className="chess-piece-container">
                         <Piece currentPieceProps={currentPiece} />
                     </div>
                     : null
                 }
+                <div className={previewManager(indexProps, isPreviewed, isConflictPreview)}>
+                </div>
             </div>
         </>
     )
