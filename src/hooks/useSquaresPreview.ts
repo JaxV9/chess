@@ -4,12 +4,14 @@ import { useMemo, useState } from "react"
 import { PieceRole } from "@/constants/constants"
 import { KnightDomain } from "@/domain/pieces/knight"
 import { RookDomain } from "@/domain/pieces/rook"
+import { BishopDomain } from "@/domain/pieces/bishop"
 
 const useSquaresPreview = () => {
     
     const pawnDomain = useMemo(() => new PawnDomain(), []);
     const knightDomain = useMemo(() => new KnightDomain, []);
     const rookDomain = useMemo(() => new RookDomain, []);
+    const bishopDomain = useMemo(() => new BishopDomain, []);
 
     const [previewedSquare, setPreviewedSquare] = useState<number[] | null>(null)
 
@@ -25,6 +27,9 @@ const useSquaresPreview = () => {
             case PieceRole.rook_black:
             case PieceRole.rook_white:
                 return setPreviewedSquare(rookDomain.preview(index));
+            case PieceRole.bishop_black:
+            case PieceRole.bishop_white:
+                return setPreviewedSquare(bishopDomain.preview(index));
         }
         
     }
