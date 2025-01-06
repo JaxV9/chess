@@ -3,6 +3,7 @@ import { ChessPiece } from "@/data/chess";
 import { BishopDomain } from "@/domain/pieces/bishop";
 import { KnightDomain } from "@/domain/pieces/knight";
 import { PawnDomain } from "@/domain/pieces/pawn";
+import { QueenDomain } from "@/domain/pieces/queen";
 import { RookDomain } from "@/domain/pieces/rook";
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 
@@ -13,6 +14,7 @@ const useMove = (setAllPieces: Dispatch<SetStateAction<ChessPiece[]>>) => {
     const knightDomain = useMemo(() => new KnightDomain(), []);
     const rookDomain = useMemo(() => new RookDomain(), []);
     const bishopDomain = useMemo(() => new BishopDomain(), []);
+    const queenDomain = useMemo(() => new QueenDomain(), []);
     
     const [currentPiece, setCurrentPiece] = useState<ChessPiece | null>(null)
     const [firstSquareTriggered, setFirstSquareTriggered] = useState<number | null>(null)
@@ -80,12 +82,16 @@ const useMove = (setAllPieces: Dispatch<SetStateAction<ChessPiece[]>>) => {
                 case PieceRole.bishop_black:
                 case PieceRole.bishop_white:
                     return setMoveIsValid(bishopDomain.checkMove(nextPos, currentPiece))
+                case PieceRole.queen_black:
+                case PieceRole.queen_white:
+                    return setMoveIsValid(queenDomain.checkMove(nextPos, currentPiece))
             }
         }
     },[
         nextPos, currentPiece,
         pawnDomain, knightDomain,
-        rookDomain, bishopDomain
+        rookDomain, bishopDomain,
+        queenDomain
     ])
 
 
