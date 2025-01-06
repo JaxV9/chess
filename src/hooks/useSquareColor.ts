@@ -7,12 +7,16 @@ const useSquareColor = () => {
     const chessBoardDomain = useMemo(() => new ChessBoardDomain(), []);
 
     //manage if the color is white or black
-    const colorManager = (index: number, isPreviewed: boolean, isConflictPreview: boolean) => {
-        return chessBoardDomain.colorManager(index, isPreviewed, isConflictPreview)
+    const colorManager = (index: number) => {
+        return chessBoardDomain.colorManager(index)
+    }
+    const previewManager = (index: number, isPreviewed: boolean, isConflictPreview: boolean) => {
+        return chessBoardDomain.previewManager(index, isPreviewed, isConflictPreview)
     }
 
     return {
-        colorManager
+        colorManager,
+        previewManager
     };
 }
 

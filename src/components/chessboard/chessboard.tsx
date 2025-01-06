@@ -5,7 +5,6 @@ import { ChessboardInfos } from "../ui/chessboardInfos/chessboardInfos";
 import { useState } from "react";
 import useSquaresPreview from "@/hooks/useSquaresPreview";
 import useMove from "@/hooks/useMove";
-import useSquareColor from "@/hooks/useSquareColor";
 
 
 export const Chessboard = () => {
@@ -16,7 +15,6 @@ export const Chessboard = () => {
     const [allPieces, setAllPieces] = useState<ChessPiece[]>(data);
 
     const { move, moveStop, moveIsValid } = useMove(setAllPieces);
-    const { colorManager } = useSquareColor();
 
     return (
         <>
@@ -30,7 +28,6 @@ export const Chessboard = () => {
                                     getAllPreviewedSquaresProps={getAllPreviewedSquares}
                                     previewedSquareProps={previewedSquare}
                                     clearPreviewProps={clearPreview}
-                                    colorManagerProps={colorManager}
                                     moveProps={move}
                                     moveStopProps={moveStop}
                                     moveIsValidProps={moveIsValid}
