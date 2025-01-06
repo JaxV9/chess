@@ -1,22 +1,28 @@
 import { PieceRole } from "@/constants/constants";
-import { ChessPiece } from "@/data/chess";
 import { BishopDomain } from "@/domain/pieces/bishop";
 import { KingDomain } from "@/domain/pieces/king";
 import { KnightDomain } from "@/domain/pieces/knight";
 import { PawnDomain } from "@/domain/pieces/pawn";
 import { QueenDomain } from "@/domain/pieces/queen";
 import { RookDomain } from "@/domain/pieces/rook";
-import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
+import { useAppDispatch } from "@/store/hooks";
+import { useEffect, useMemo, useState } from "react";
+import { moveStore } from "@/store/reducers/chessPiecesSlice";
+import { ChessPiece } from "@/models/models";
 
 
-const useMove = (setAllPieces: Dispatch<SetStateAction<ChessPiece[]>>) => {
+const useMove = () => {
 
+    //domain
     const pawnDomain = useMemo(() => new PawnDomain(), []);
     const knightDomain = useMemo(() => new KnightDomain(), []);
     const rookDomain = useMemo(() => new RookDomain(), []);
     const bishopDomain = useMemo(() => new BishopDomain(), []);
     const queenDomain = useMemo(() => new QueenDomain(), []);
     const kingDomain = useMemo(() => new KingDomain(), []);
+
+    //store
+    const dispatch = useAppDispatch();
     
     const [currentPiece, setCurrentPiece] = useState<ChessPiece | null>(null)
     const [firstSquareTriggered, setFirstSquareTriggered] = useState<number | null>(null)
@@ -96,7 +102,7 @@ const useMove = (setAllPieces: Dispatch<SetStateAction<ChessPiece[]>>) => {
         nextPos, currentPiece,
         pawnDomain, knightDomain,
         rookDomain, bishopDomain,
-        queenDomain
+        queenDomain, kingDomain
     ])
 
 
@@ -123,16 +129,10 @@ const useMove = (setAllPieces: Dispatch<SetStateAction<ChessPiece[]>>) => {
 
     useEffect(() => {
         if (chessMod) {
-            setAllPieces(prev =>
-                prev.map(piece =>
-                    piece.id === chessMod.id ?
-                        { ...piece, pos: chessMod.pos }
-                        : piece
-                )
-            )
+            dispatch(moveStore({ id: chessMod.id, pos: chessMod.pos }))
             setChessMod(null)
         }
-    }, [chessMod, setChessMod, setAllPieces])
+    }, [chessMod, setChessMod, dispatch])
 
     return {
         move,
