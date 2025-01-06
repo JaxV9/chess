@@ -25,12 +25,10 @@ export class ChessBoardDomain {
 
     public previewManager(index: number, isPreviewed: boolean, isConflictPreview: boolean) {
         if(isPreviewed && isConflictPreview){
-            console.log('preview-conflict')
             return 'square-preview preview-conflict'
         }
 
         if(isPreviewed && !isConflictPreview){
-            console.log('preview')
             return 'square-preview preview'
         }
         return 'square-preview'
