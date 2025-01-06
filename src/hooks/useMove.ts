@@ -1,6 +1,7 @@
 import { PieceRole } from "@/constants/constants";
 import { ChessPiece } from "@/data/chess";
 import { BishopDomain } from "@/domain/pieces/bishop";
+import { KingDomain } from "@/domain/pieces/king";
 import { KnightDomain } from "@/domain/pieces/knight";
 import { PawnDomain } from "@/domain/pieces/pawn";
 import { QueenDomain } from "@/domain/pieces/queen";
@@ -15,6 +16,7 @@ const useMove = (setAllPieces: Dispatch<SetStateAction<ChessPiece[]>>) => {
     const rookDomain = useMemo(() => new RookDomain(), []);
     const bishopDomain = useMemo(() => new BishopDomain(), []);
     const queenDomain = useMemo(() => new QueenDomain(), []);
+    const kingDomain = useMemo(() => new KingDomain(), []);
     
     const [currentPiece, setCurrentPiece] = useState<ChessPiece | null>(null)
     const [firstSquareTriggered, setFirstSquareTriggered] = useState<number | null>(null)
@@ -85,6 +87,9 @@ const useMove = (setAllPieces: Dispatch<SetStateAction<ChessPiece[]>>) => {
                 case PieceRole.queen_black:
                 case PieceRole.queen_white:
                     return setMoveIsValid(queenDomain.checkMove(nextPos, currentPiece))
+                case PieceRole.king_black:
+                case PieceRole.king_white:
+                    return setMoveIsValid(kingDomain.checkMove(nextPos, currentPiece))
             }
         }
     },[
