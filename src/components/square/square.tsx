@@ -8,7 +8,6 @@ import { useEffect } from "react";
 
 type SquarePropsType = {
     indexProps: number,
-    allPiecesProps: ChessPiece[],
     getAllPreviewedSquaresProps: (index: number, chessPiece: ChessPiece) => void,
     clearPreviewProps: () => void,
     previewedSquareProps: number[] | null,
@@ -17,12 +16,11 @@ type SquarePropsType = {
     moveStopProps: () => void
 }
 
-export const Square = ({ indexProps, allPiecesProps,
+export const Square = ({ indexProps,
     getAllPreviewedSquaresProps, clearPreviewProps, previewedSquareProps,
     moveProps, moveIsValidProps, moveStopProps }: SquarePropsType) => {
 
-    const { currentPiece } = useCurrentPiece(allPiecesProps, indexProps)
-
+    const { currentPiece } = useCurrentPiece(indexProps)
     const { colorManager, previewManager } = useSquareColor();
 
     const { isPreviewed, isConflictPreview, preview, samePiece, clearStates } = useSquarePreviewState(
