@@ -6,6 +6,7 @@ export type ChessPiece = {
 };
 
 export type Player = {
+    id: string
     name: string;
     team: "white" | 'black',
     ChessPiecesCaptured: ChessPiece[] | null,
@@ -16,7 +17,7 @@ export type Move = {
     player: Player,
     from: number,
     to: number,
-    pieceCaptured: ChessPiece
+    pieceCaptured: ChessPiece | null
 }
 
 export type Game = {

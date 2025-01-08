@@ -2,6 +2,7 @@
 @import url('../components/square/style.css');
 @import url('../components/ui/chessboardInfos/style.css');
 @import url('../components/piece/style.css');
+@import url('../components/menu/style.css');
 
 html,
 body {
