@@ -1,12 +1,14 @@
 import { ChessPiece } from "@/data/chess"
 import { PawnDomain } from "@/domain/pieces/pawn"
-import { useMemo, useState } from "react"
+import { useMemo } from "react"
 import { PieceRole } from "@/constants/constants"
 import { KnightDomain } from "@/domain/pieces/knight"
 import { RookDomain } from "@/domain/pieces/rook"
 import { BishopDomain } from "@/domain/pieces/bishop"
 import { QueenDomain } from "@/domain/pieces/queen"
 import { KingDomain } from "@/domain/pieces/king"
+import { useAppDispatch, useAppSelector } from "@/store/hooks"
+import { updatePreviewedSquares } from "@/store/reducers/previewedSquaresSlice"
 
 const useSquaresPreview = () => {
     
@@ -17,39 +19,40 @@ const useSquaresPreview = () => {
     const queenDomain = useMemo(() => new QueenDomain, []);
     const kingDomain = useMemo(() => new KingDomain, []);
 
-    const [previewedSquare, setPreviewedSquare] = useState<number[] | null>(null)
+    const previewedSquares = useAppSelector((state) => state.previewedSquares.previewedSquares);
+    const dispatch = useAppDispatch();
 
     //list all previewed square (in green)
     const getAllPreviewedSquares = async (index: number, chessPiece: ChessPiece) => {
         switch(chessPiece.role){
             case PieceRole.pawn_black:
             case PieceRole.pawn_white:
-                return setPreviewedSquare(pawnDomain.preview(index, chessPiece));
+                return dispatch(updatePreviewedSquares(pawnDomain.preview(index, chessPiece)));
             case PieceRole.knight_black:
             case PieceRole.knight_white:
-                return setPreviewedSquare(knightDomain.preview(index, chessPiece));
+                return dispatch(updatePreviewedSquares(knightDomain.preview(index, chessPiece)));
             case PieceRole.rook_black:
             case PieceRole.rook_white:
-                return setPreviewedSquare(rookDomain.preview(index));
+                return dispatch(updatePreviewedSquares(rookDomain.preview(index)));
             case PieceRole.bishop_black:
             case PieceRole.bishop_white:
-                return setPreviewedSquare(bishopDomain.preview(index));
+                return dispatch(updatePreviewedSquares(bishopDomain.preview(index)));
             case PieceRole.queen_black:
             case PieceRole.queen_white:
-                return setPreviewedSquare(queenDomain.preview(index));
+                return dispatch(updatePreviewedSquares(queenDomain.preview(index)));
             case PieceRole.king_black:
             case PieceRole.king_white:
-                return setPreviewedSquare(kingDomain.preview(index));
+                return dispatch(updatePreviewedSquares(kingDomain.preview(index)));
         }
         
     }
 
     const clearPreview = () => {
-        setPreviewedSquare(null)
+        dispatch(updatePreviewedSquares(null))
     }
 
     return {
-        previewedSquare,
+        previewedSquares,
         getAllPreviewedSquares,
         clearPreview,
     };

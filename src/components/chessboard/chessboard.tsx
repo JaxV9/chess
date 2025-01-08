@@ -1,20 +1,16 @@
 "use client";
-import { data, ChessPiece } from "@/data/chess";
 import { Square } from "../square/square";
 import { ChessboardInfos } from "../ui/chessboardInfos/chessboardInfos";
-import { useState } from "react";
 import useSquaresPreview from "@/hooks/useSquaresPreview";
 import useMove from "@/hooks/useMove";
 
 
 export const Chessboard = () => {
 
-    const { previewedSquare, getAllPreviewedSquares, clearPreview } = useSquaresPreview();
-
+    //hooks
+    const { previewedSquares, getAllPreviewedSquares, clearPreview } = useSquaresPreview();
+    const { move, moveStop, moveIsValid } = useMove();
     const square = Array.from({ length: 64 }, (_, i) => i + 1);
-    const [allPieces, setAllPieces] = useState<ChessPiece[]>(data);
-
-    const { move, moveStop, moveIsValid } = useMove(setAllPieces);
 
     return (
         <>
@@ -26,12 +22,11 @@ export const Chessboard = () => {
                                 <Square
                                     key={index} indexProps={element}
                                     getAllPreviewedSquaresProps={getAllPreviewedSquares}
-                                    previewedSquareProps={previewedSquare}
+                                    previewedSquareProps={previewedSquares}
                                     clearPreviewProps={clearPreview}
                                     moveProps={move}
                                     moveStopProps={moveStop}
-                                    moveIsValidProps={moveIsValid}
-                                    allPiecesProps={allPieces} />
+                                    moveIsValidProps={moveIsValid} />
                             ))
                         }
                     </div>
