@@ -1,9 +1,4 @@
-export type ChessPiece = {
-    id: string;
-    role: string,
-    color: string,
-    pos: number;
-};
+import { ChessPiece, GameLogs } from "@/models/models";
 
 export const data: ChessPiece[] =
     [
@@ -40,3 +35,8 @@ export const data: ChessPiece[] =
         { id: "rook_w1", role: "rook_white", color: "white", pos: 57 },
         { id: "rook_w2", role: "rook_white", color: "white", pos: 64 }
     ];
+
+export const gameLogs: GameLogs  = {
+    game: null,
+    moves: []
+}

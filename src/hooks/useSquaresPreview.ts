@@ -1,4 +1,3 @@
-import { ChessPiece } from "@/data/chess"
 import { PawnDomain } from "@/domain/pieces/pawn"
 import { useMemo } from "react"
 import { PieceRole } from "@/constants/constants"
@@ -9,6 +8,7 @@ import { QueenDomain } from "@/domain/pieces/queen"
 import { KingDomain } from "@/domain/pieces/king"
 import { useAppDispatch, useAppSelector } from "@/store/hooks"
 import { updatePreviewedSquares } from "@/store/reducers/previewedSquaresSlice"
+import { ChessPiece } from "@/models/models"
 
 const useSquaresPreview = () => {
     

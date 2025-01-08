@@ -1,6 +1,4 @@
 export class ChessBoardDomain {
-    
-    constructor() {}
 
     public colorManager(index: number) {
         let theme: string = '';

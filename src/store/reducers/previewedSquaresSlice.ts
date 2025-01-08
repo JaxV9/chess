@@ -14,7 +14,6 @@ const previewedSquaresSlice = createSlice({
   reducers: {
     updatePreviewedSquares: (state, action: PayloadAction<number[] | null>) => {
       const body = action.payload;
-      console.log(body)
       state.previewedSquares = body
     },
   },

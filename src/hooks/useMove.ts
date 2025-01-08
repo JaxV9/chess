@@ -1,5 +1,4 @@
 import { PieceRole } from "@/constants/constants";
-import { ChessPiece } from "@/data/chess";
 import { BishopDomain } from "@/domain/pieces/bishop";
 import { KingDomain } from "@/domain/pieces/king";
 import { KnightDomain } from "@/domain/pieces/knight";
@@ -9,6 +8,7 @@ import { RookDomain } from "@/domain/pieces/rook";
 import { useAppDispatch } from "@/store/hooks";
 import { useEffect, useMemo, useState } from "react";
 import { moveStore } from "@/store/reducers/chessPiecesSlice";
+import { ChessPiece } from "@/models/models";
 
 
 const useMove = () => {

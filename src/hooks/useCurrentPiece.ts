@@ -1,4 +1,4 @@
-import { ChessPiece } from "@/data/chess";
+import { ChessPiece } from "@/models/models";
 import { useAppSelector } from "@/store/hooks";
 import { useEffect, useState } from "react";
 
