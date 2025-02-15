@@ -9,12 +9,12 @@ const useGame = () => {
 
     const gameInfo = useAppSelector((state) => state.gameEngine.game);
 
-    const newGameF = (newGame: Game) => {
+    const newGame = (newGame: Game) => {
         dispatch(gameEngine.newGame({newGame}))
     }
 
     return {
-        newGameF,
+        newGame,
         gameInfo
     };
 }

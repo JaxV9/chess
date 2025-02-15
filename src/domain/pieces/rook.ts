@@ -1,4 +1,4 @@
-import { ChessPiece } from "@/data/service";
+import { ChessPiece } from "@/models/models";
 
 export class RookDomain {
     constructor() { }

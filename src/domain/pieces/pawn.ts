@@ -1,5 +1,5 @@
 import { PieceRole } from "@/constants/constants";
-import { ChessPiece } from "@/data/service";
+import { ChessPiece } from "@/models/models";
 
 export class PawnDomain {
     constructor() {}
