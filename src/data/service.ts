@@ -1,4 +1,4 @@
-import { ChessPiece, GameLogs } from "@/models/models";
+import { ChessPiece, Game, GameLogs } from "@/models/models";
 
 export const data: ChessPiece[] =
     [
@@ -40,3 +40,5 @@ export const gameLogs: GameLogs  = {
     game: null,
     moves: []
 }
+
+export const game: Game | null = null;

@@ -1,6 +1,6 @@
 "use client";
 import { Piece } from "../piece/piece";
-import { ChessPiece } from "@/data/chess";
+import { ChessPiece } from "@/data/service";
 import useCurrentPiece from "@/hooks/useCurrentPiece";
 import useSquareColor from "@/hooks/useSquareColor";
 import useSquarePreviewState from "@/hooks/useSquarePreviewState";

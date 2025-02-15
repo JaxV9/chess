@@ -10,7 +10,7 @@ import knightBlack from "../assets/pieces/knight-black.svg";
 import knightWhite from "../assets/pieces/knight-white.svg";
 import rookBlack from "../assets/pieces/rook-black.svg";
 import rookWhite from "../assets/pieces/rook-white.svg"
-import { ChessPiece } from "@/data/chess";
+import { ChessPiece } from "@/models/models";
 
 const useCurrentImagePiece = (currentPiece: ChessPiece) => {
 

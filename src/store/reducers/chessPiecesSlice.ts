@@ -1,4 +1,4 @@
-import { data } from '@/data/chess';
+import { data } from '@/data/service';
 import { ChessPiece } from '@/models/models';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 

@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import chessPiecesReducer from './reducers/chessPiecesSlice';
 import previewedSquaresReducer from './reducers/previewedSquaresSlice';
+import gameEngineReducer from './reducers/gameSlice';
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       chessPieces: chessPiecesReducer,
-      previewedSquares: previewedSquaresReducer
+      previewedSquares: previewedSquaresReducer,
+      gameEngine: gameEngineReducer
     }
   })
 }

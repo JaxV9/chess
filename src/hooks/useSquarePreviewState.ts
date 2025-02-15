@@ -1,4 +1,4 @@
-import { ChessPiece } from "@/data/chess";
+import { ChessPiece } from "@/data/service";
 import { useEffect, useState } from "react";
 
 
