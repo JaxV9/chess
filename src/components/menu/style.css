@@ -18,10 +18,11 @@
     width: 400px;
     height: 200px;
     border-radius: 16px;
-    background-color: rgb(245, 245, 245);
+    background-color: #2C2638;
     margin: auto;
     display: flex;
     flex-direction: column;
+    color: white;
 }
 
 .menu-container > div {
@@ -33,13 +34,14 @@
 .menu-start-game-btn {
     padding: 16px 0;
     width: 100%;
-    background-color: rgb(17, 169, 17);
+    background-color: #6D54B5;
     border: none;
     border-radius: 8px;
     display: block;
     cursor: pointer;
     transition: all ease 0.2s;
-    font-size: 28px;
+    font-size: 18px;
+    color: white;
 }
 
 .menu-start-game-btn:hover {
