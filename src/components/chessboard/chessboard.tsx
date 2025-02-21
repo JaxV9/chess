@@ -17,7 +17,6 @@ export const Chessboard = () => {
     const { move, moveStop, moveIsValid } = useMove();
     const square = Array.from({ length: 64 }, (_, i) => i + 1);
 
-
     useEffect(() => {
         actionsRef.current.getChess()
     }, [actionsRef])

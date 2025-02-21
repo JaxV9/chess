@@ -5,10 +5,9 @@ import { KnightDomain } from "@/domain/pieces/knight";
 import { PawnDomain } from "@/domain/pieces/pawn";
 import { QueenDomain } from "@/domain/pieces/queen";
 import { RookDomain } from "@/domain/pieces/rook";
-import { useAppDispatch } from "@/store/hooks";
 import { useEffect, useRef, useState } from "react";
-import { moveStore } from "@/store/reducers/chessPiecesSlice";
 import { ChessPiece } from "@/models/models";
+import { Actions } from "@/store/actions/actions";
 
 
 const useMove = () => {
@@ -21,8 +20,8 @@ const useMove = () => {
     const queenDomain = useRef(new QueenDomain());
     const kingDomain = useRef(new KingDomain());
 
-    //store
-    const dispatch = useAppDispatch();
+    //store actions
+    const actionsRef = useRef(new Actions());
     
     const [currentPiece, setCurrentPiece] = useState<ChessPiece | null>(null)
     const [firstSquareTriggered, setFirstSquareTriggered] = useState<number | null>(null)
@@ -129,10 +128,10 @@ const useMove = () => {
 
     useEffect(() => {
         if (chessMod) {
-            dispatch(moveStore({ id: chessMod.id, pos: chessMod.pos }))
+            actionsRef.current.updateChessPosition(chessMod.id, chessMod.pos)
             setChessMod(null)
         }
-    }, [chessMod, setChessMod, dispatch])
+    }, [chessMod, setChessMod])
 
     return {
         move,

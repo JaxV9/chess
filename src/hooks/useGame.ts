@@ -1,16 +1,18 @@
 import { Game } from "@/models/models";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { gameEngine } from "@/store/reducers/gameSlice";
+import { Actions } from "@/store/actions/actions";
+import { useAppSelector } from "@/store/hooks";
+import { useRef } from "react";
 
 
 const useGame = () => {
-    //store
-    const dispatch = useAppDispatch();
+
+    //store actions
+    const actionsRef = useRef(new Actions());
 
     const gameInfo = useAppSelector((state) => state.gameEngine.game);
 
     const newGame = (newGame: Game) => {
-        dispatch(gameEngine.newGame({newGame}))
+        actionsRef.current.startGame(newGame);
     }
 
     return {
