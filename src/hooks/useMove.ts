@@ -6,7 +6,7 @@ import { PawnDomain } from "@/domain/pieces/pawn";
 import { QueenDomain } from "@/domain/pieces/queen";
 import { RookDomain } from "@/domain/pieces/rook";
 import { useAppDispatch } from "@/store/hooks";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { moveStore } from "@/store/reducers/chessPiecesSlice";
 import { ChessPiece } from "@/models/models";
 
@@ -14,12 +14,12 @@ import { ChessPiece } from "@/models/models";
 const useMove = () => {
 
     //domain
-    const pawnDomain = useMemo(() => new PawnDomain(), []);
-    const knightDomain = useMemo(() => new KnightDomain(), []);
-    const rookDomain = useMemo(() => new RookDomain(), []);
-    const bishopDomain = useMemo(() => new BishopDomain(), []);
-    const queenDomain = useMemo(() => new QueenDomain(), []);
-    const kingDomain = useMemo(() => new KingDomain(), []);
+    const pawnDomain = useRef(new PawnDomain());
+    const knightDomain = useRef(new KnightDomain());
+    const rookDomain = useRef(new RookDomain());
+    const bishopDomain = useRef(new BishopDomain());
+    const queenDomain = useRef(new QueenDomain());
+    const kingDomain = useRef(new KingDomain());
 
     //store
     const dispatch = useAppDispatch();
@@ -80,22 +80,22 @@ const useMove = () => {
             switch(currentPiece?.role){
                 case PieceRole.pawn_black:
                 case PieceRole.pawn_white:
-                    return setMoveIsValid(pawnDomain.checkMove(nextPos, currentPiece))
+                    return setMoveIsValid(pawnDomain.current.checkMove(nextPos, currentPiece))
                 case PieceRole.knight_black:
                 case PieceRole.knight_white:
-                    return setMoveIsValid(knightDomain.checkMove(nextPos, currentPiece))
+                    return setMoveIsValid(knightDomain.current.checkMove(nextPos, currentPiece))
                 case PieceRole.rook_black:
                 case PieceRole.rook_white:
-                    return setMoveIsValid(rookDomain.checkMove(nextPos, currentPiece))
+                    return setMoveIsValid(rookDomain.current.checkMove(nextPos, currentPiece))
                 case PieceRole.bishop_black:
                 case PieceRole.bishop_white:
-                    return setMoveIsValid(bishopDomain.checkMove(nextPos, currentPiece))
+                    return setMoveIsValid(bishopDomain.current.checkMove(nextPos, currentPiece))
                 case PieceRole.queen_black:
                 case PieceRole.queen_white:
-                    return setMoveIsValid(queenDomain.checkMove(nextPos, currentPiece))
+                    return setMoveIsValid(queenDomain.current.checkMove(nextPos, currentPiece))
                 case PieceRole.king_black:
                 case PieceRole.king_white:
-                    return setMoveIsValid(kingDomain.checkMove(nextPos, currentPiece))
+                    return setMoveIsValid(kingDomain.current.checkMove(nextPos, currentPiece))
             }
         }
     },[

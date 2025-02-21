@@ -1,4 +1,3 @@
-import { data } from '@/data/service';
 import { ChessPiece } from '@/models/models';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
@@ -7,7 +6,7 @@ interface ChessState {
 }
 
 const initialState: ChessState = {
-  pieces: data,
+  pieces: [],
 };
 
 const chessPiecesSlice = createSlice({
@@ -21,12 +20,13 @@ const chessPiecesSlice = createSlice({
         piece.pos = pos;
       }
     },
-    resetPiecesStore: (state) => {
-      state.pieces = [...data];
+    loadChessPosition: (state, action: PayloadAction<{ chessPieces: ChessPiece[]}>) => {
+      const { chessPieces } = action.payload;
+      state.pieces = chessPieces;
     },
   },
 });
 
-export const { moveStore, resetPiecesStore } = chessPiecesSlice.actions;
+export const { moveStore, loadChessPosition } = chessPiecesSlice.actions;
 
-export default chessPiecesSlice.reducer;
+export const chessPiecesReducer = chessPiecesSlice.reducer
