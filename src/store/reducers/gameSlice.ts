@@ -14,13 +14,13 @@ const gameSlice = createSlice({
   name: 'game',
   initialState,
   reducers: {
-    newGame: (state, action: PayloadAction<{newGame: Game}>) => {
+    startGame: (state, action: PayloadAction<{newGame: Game}>) => {
       const { newGame } = action.payload
       state.game = newGame;
     },
   },
 });
 
-export const gameEngine = gameSlice.actions;
+export const { startGame } = gameSlice.actions;
 
-export default gameSlice.reducer;
+export const gameEngineReducer = gameSlice.reducer;

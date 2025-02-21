@@ -21,4 +21,4 @@ const previewedSquaresSlice = createSlice({
 
 export const { updatePreviewedSquares } = previewedSquaresSlice.actions;
 
-export default previewedSquaresSlice.reducer;
+export const previewedSquaresReducer =  previewedSquaresSlice.reducer;

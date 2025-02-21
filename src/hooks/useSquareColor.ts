@@ -1,17 +1,17 @@
 import { ChessBoardDomain } from "@/domain/chessboard/chessboard";
-import { useMemo } from "react";
+import { useRef } from "react";
 
 
 const useSquareColor = () => {
 
-    const chessBoardDomain = useMemo(() => new ChessBoardDomain(), []);
+    const chessBoardDomain = useRef(new ChessBoardDomain());
 
     //manage if the color is white or black
     const colorManager = (index: number) => {
-        return chessBoardDomain.colorManager(index)
+        return chessBoardDomain.current.colorManager(index)
     }
     const previewManager = (index: number, isPreviewed: boolean, isConflictPreview: boolean) => {
-        return chessBoardDomain.previewManager(index, isPreviewed, isConflictPreview)
+        return chessBoardDomain.current.previewManager(index, isPreviewed, isConflictPreview)
     }
 
     return {
