@@ -32,3 +32,8 @@ export type GameLogs = {
     game: Game | null,
     moves: Move[] | [],
 }
+
+export interface ApiResponse {
+    response: string,
+    data: unknown
+}

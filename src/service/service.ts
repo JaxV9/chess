@@ -30,3 +30,27 @@ export function fetchChess(): Promise<ChessPiece[]> {
         });
     });
 }
+
+export function updateChess(): Promise<ChessPiece[]> {
+    return new Promise((resolve, reject) => {
+
+        const socket = new WebSocket(getChessUrl);
+
+        socket.addEventListener("open", () => {
+            socket.send("Connection established");
+        });
+
+        socket.addEventListener("message", event => {
+            try {
+                const response: ApiResponse = JSON.parse(event.data);
+                resolve(response.data as ChessPiece[]);
+            } catch (error) {
+                reject(error);
+            }
+        });
+
+        socket.addEventListener("error", error => {
+            reject(error);
+        });
+    });
+}
