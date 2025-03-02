@@ -128,7 +128,7 @@ const useMove = () => {
 
     useEffect(() => {
         if (chessMod) {
-            actionsRef.current.updateChessPosition(chessMod.id, chessMod.pos)
+            actionsRef.current.updateChessPosition(chessMod)
             setChessMod(null)
         }
     }, [chessMod, setChessMod])
