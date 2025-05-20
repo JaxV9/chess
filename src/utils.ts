@@ -4,6 +4,7 @@ export class Http {
   async post(path: string, payload?: object | null): Promise<Response> {
     const response = await fetch(`${this.baseUrl + path}`, {
       method: "POST",
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json",
       },

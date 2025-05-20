@@ -6,9 +6,9 @@ export class GuestServices {
   async createGuest(): Promise<Response> {
     try {
       const response = await this.http.post("guest");
-      return response;
+      return await response.json();
     } catch (error) {
-      throw error;
+      throw await error;
     }
   }
 }
