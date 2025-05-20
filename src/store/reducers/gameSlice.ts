@@ -1,4 +1,3 @@
-import { game } from '@/data/service';
 import { Game } from '@/models/models';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
@@ -7,7 +6,7 @@ interface GameState {
 }
 
 const initialState: GameState = {
-    game: game
+    game: null
 };
 
 const gameSlice = createSlice({

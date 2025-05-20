@@ -1,34 +1,19 @@
 "use client";
 
-import useGame from "@/hooks/useGame";
-import { Game } from "@/models/models";
-
+import { useRef } from "react";
+import { UiMenu } from "../ui/uiMenu/uiMenu";
+import { UiMenuBtn } from "../ui/uiMenuBtn/uiMenuBtn";
+import { GuestUseCases } from "@/useCases/guest.useCases";
 
 export const Menu = () => {
+  const guestUseCases = useRef(new GuestUseCases()).current;
 
-    const test = {
-        id: "nrfoi",
-        mode: "solo"
-    } as Game
-
-    const { newGame, gameInfo } = useGame();
-
-    return (
-        <>
-            {
-                gameInfo === null ?
-                    <section className="menu-section">
-                        <div className="menu-container">
-                            <div>
-                                <h2>Menu</h2>
-                                <button onClick={() => newGame(test)} className="menu-start-game-btn">
-                                    New game
-                                </button>
-                            </div>
-                        </div>
-                    </section>
-                    : null
-            }
-        </>
-    )
-}
+  return (
+    <>
+      <UiMenu>
+        <h2>Chess</h2>
+        <UiMenuBtn callback={guestUseCases.createGuest} text="New game as guest" />
+      </UiMenu>
+    </>
+  );
+};

@@ -3,7 +3,7 @@ import { loadChessPosition } from "../reducers/chessPiecesSlice";
 import { updatePreviewedSquares } from "../reducers/previewedSquaresSlice";
 import { ChessPiece, Game } from "@/models/models";
 import { startGame } from "../reducers/gameSlice";
-import { WebsocketProvider } from "@/service/websocketProvider";
+import { WebsocketProvider } from "@/services/websocketProvider";
 
 
 export class Actions{

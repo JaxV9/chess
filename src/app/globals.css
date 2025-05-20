@@ -3,6 +3,8 @@
 @import url('../components/ui/chessboardInfos/style.css');
 @import url('../components/piece/style.css');
 @import url('../components/menu/style.css');
+@import url('../components/ui/uiMenu/style.css');
+@import url('../components/ui/uiMenuBtn/style.css');
 
 html,
 body {
