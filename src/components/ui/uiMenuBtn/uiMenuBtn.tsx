@@ -1,13 +1,14 @@
 "use client";
 
 type UiMenuBtnProps = {
-    text: string
+    text: string,
+    callback: () => unknown
 }
 
-export const UiMenuBtn = ({text}:UiMenuBtnProps) => {
+export const UiMenuBtn = ({text, callback}:UiMenuBtnProps) => {
   return (
     <>
-        <button className="menu-start-game-btn">{text}</button>
+        <button onClick={() => callback()} className="menu-start-game-btn">{text}</button>
     </>
   );
 };
