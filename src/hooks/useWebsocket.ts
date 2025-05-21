@@ -1,12 +1,10 @@
-import { Actions } from "@/store/actions/actions";
-import { useEffect, useRef } from "react";
+import { playerUseCases } from "@/useCases/gateway.useCases";
+import { useEffect } from "react";
 
 const useWebSocket = () => {
 
-    const actionsRef = useRef(new Actions());
-
     useEffect(() => {
-        actionsRef.current.getChess()
+        playerUseCases.getChess()
     },[])
 
 }

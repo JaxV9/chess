@@ -1,18 +1,14 @@
 import { Game } from "@/models/models";
-import { Actions } from "@/store/actions/actions";
 import { useAppSelector } from "@/store/hooks";
-import { useRef } from "react";
+import { playerUseCases } from "@/useCases/gateway.useCases";
 
 
 const useGame = () => {
 
-    //store actions
-    const actionsRef = useRef(new Actions());
-
     const gameInfo = useAppSelector((state) => state.gameEngine.game);
 
     const newGame = (newGame: Game) => {
-        actionsRef.current.startGame(newGame);
+        playerUseCases.startGame(newGame)
     }
 
     return {

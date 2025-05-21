@@ -7,7 +7,7 @@ import { QueenDomain } from "@/domain/pieces/queen";
 import { RookDomain } from "@/domain/pieces/rook";
 import { useEffect, useRef, useState } from "react";
 import { ChessPiece } from "@/models/models";
-import { Actions } from "@/store/actions/actions";
+import { playerUseCases } from "@/useCases/gateway.useCases";
 
 
 const useMove = () => {
@@ -19,9 +19,6 @@ const useMove = () => {
     const bishopDomain = useRef(new BishopDomain());
     const queenDomain = useRef(new QueenDomain());
     const kingDomain = useRef(new KingDomain());
-
-    //store actions
-    const actionsRef = useRef(new Actions());
     
     const [currentPiece, setCurrentPiece] = useState<ChessPiece | null>(null)
     const [firstSquareTriggered, setFirstSquareTriggered] = useState<number | null>(null)
@@ -128,7 +125,7 @@ const useMove = () => {
 
     useEffect(() => {
         if (chessMod) {
-            actionsRef.current.updateChessPosition(chessMod)
+            playerUseCases.updateChessPosition(chessMod);
             setChessMod(null)
         }
     }, [chessMod, setChessMod])
