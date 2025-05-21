@@ -1,16 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ChessPiece } from "@/models/models";
-import { gameEngineUseCases, playerUseCases } from "@/useCases/gateway.useCases";
+import { UseCaseContext } from "@/contexts/contextsProvider";
 
 
 const useMove = () => {
+
+    const gatewayUseCase = useContext(UseCaseContext);
     
     const [currentPiece, setCurrentPiece] = useState<ChessPiece | null>(null)
     const [firstSquareTriggered, setFirstSquareTriggered] = useState<number | null>(null)
     const [secondSquareTriggered, setSecondSquareTriggered] = useState<number | null>(null)
     const [nextPos, setNextPos] = useState<number | null>(null)
     const [chessMod, setChessMod] = useState<ChessPiece | null>(null)
-    const [moveIsValid, setMoveIsValid] = useState<boolean | null>(null)
+    const [moveIsValid, setMoveIsValid] = useState<boolean | undefined>(undefined)
 
     const moveStop = () => {
         setFirstSquareTriggered(null)
@@ -18,7 +20,7 @@ const useMove = () => {
         setNextPos(null)
         setCurrentPiece(null)
         setChessMod(null)
-        setMoveIsValid(null)
+        setMoveIsValid(undefined)
     }
 
     const choosePieceToMove = (squareIndex: number, piece: ChessPiece | null) => {
@@ -58,7 +60,7 @@ const useMove = () => {
     //Check if the player move is valid
     useEffect(() => {
         if(nextPos && currentPiece){
-            return setMoveIsValid(gameEngineUseCases.checkIfMoveIsValide(currentPiece, nextPos))
+            return setMoveIsValid(gatewayUseCase?.gameEngineUseCases.checkIfMoveIsValide(currentPiece, nextPos))
         }
     },[nextPos, currentPiece])
 
@@ -75,18 +77,18 @@ const useMove = () => {
             setNextPos(null)
             setFirstSquareTriggered(null)
             setCurrentPiece(null)
-            setMoveIsValid(null)
+            setMoveIsValid(undefined)
         }
         if(nextPos && currentPiece && moveIsValid === false){
             setNextPos(null)
             setSecondSquareTriggered(null)
-            setMoveIsValid(null)
+            setMoveIsValid(undefined)
         }
     },[nextPos, currentPiece, moveIsValid, firstSquareTriggered])
 
     useEffect(() => {
         if (chessMod) {
-            playerUseCases.updateChessPosition(chessMod);
+            gatewayUseCase?.playerUseCases.updateChessPosition(chessMod);
             setChessMod(null)
         }
     }, [chessMod, setChessMod])
