@@ -1,4 +1,4 @@
-import { ChessBoardDomain } from "@/domain/chessboard/chessboard";
+import { ChessBoardDomain } from "@/useCases/domain/chessboard/chessboard";
 import { useRef } from "react";
 
 

@@ -1,24 +1,9 @@
-import { PieceRole } from "@/constants/constants";
-import { BishopDomain } from "@/domain/pieces/bishop";
-import { KingDomain } from "@/domain/pieces/king";
-import { KnightDomain } from "@/domain/pieces/knight";
-import { PawnDomain } from "@/domain/pieces/pawn";
-import { QueenDomain } from "@/domain/pieces/queen";
-import { RookDomain } from "@/domain/pieces/rook";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { ChessPiece } from "@/models/models";
-import { playerUseCases } from "@/useCases/gateway.useCases";
+import { gameEngineUseCases, playerUseCases } from "@/useCases/gateway.useCases";
 
 
 const useMove = () => {
-
-    //domain
-    const pawnDomain = useRef(new PawnDomain());
-    const knightDomain = useRef(new KnightDomain());
-    const rookDomain = useRef(new RookDomain());
-    const bishopDomain = useRef(new BishopDomain());
-    const queenDomain = useRef(new QueenDomain());
-    const kingDomain = useRef(new KingDomain());
     
     const [currentPiece, setCurrentPiece] = useState<ChessPiece | null>(null)
     const [firstSquareTriggered, setFirstSquareTriggered] = useState<number | null>(null)
@@ -73,33 +58,9 @@ const useMove = () => {
     //Check if the player move is valid
     useEffect(() => {
         if(nextPos && currentPiece){
-            switch(currentPiece?.role){
-                case PieceRole.pawn_black:
-                case PieceRole.pawn_white:
-                    return setMoveIsValid(pawnDomain.current.checkMove(nextPos, currentPiece))
-                case PieceRole.knight_black:
-                case PieceRole.knight_white:
-                    return setMoveIsValid(knightDomain.current.checkMove(nextPos, currentPiece))
-                case PieceRole.rook_black:
-                case PieceRole.rook_white:
-                    return setMoveIsValid(rookDomain.current.checkMove(nextPos, currentPiece))
-                case PieceRole.bishop_black:
-                case PieceRole.bishop_white:
-                    return setMoveIsValid(bishopDomain.current.checkMove(nextPos, currentPiece))
-                case PieceRole.queen_black:
-                case PieceRole.queen_white:
-                    return setMoveIsValid(queenDomain.current.checkMove(nextPos, currentPiece))
-                case PieceRole.king_black:
-                case PieceRole.king_white:
-                    return setMoveIsValid(kingDomain.current.checkMove(nextPos, currentPiece))
-            }
+            return setMoveIsValid(gameEngineUseCases.checkIfMoveIsValide(currentPiece, nextPos))
         }
-    },[
-        nextPos, currentPiece,
-        pawnDomain, knightDomain,
-        rookDomain, bishopDomain,
-        queenDomain, kingDomain
-    ])
+    },[nextPos, currentPiece])
 
 
     //Modify the chess position
