@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import StoreProvider from "./StoreProvider";
 import { Inter } from "next/font/google";
+import ContextsProvider from "@/contexts/contextsProvider";
+import { PopupUi } from "@/components/ui/popUp/popup";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -21,9 +22,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={[inter.variable].join(" ")}>
-        <StoreProvider>
+        <ContextsProvider>
           {children}
-        </StoreProvider>
+          <PopupUi />
+        </ContextsProvider>
       </body>
     </html>
   );

@@ -1,18 +1,27 @@
 "use client";
 
-import { useRef } from "react";
 import { UiMenu } from "../ui/uiMenu/uiMenu";
 import { UiMenuBtn } from "../ui/uiMenuBtn/uiMenuBtn";
-import { GuestUseCases } from "@/useCases/guest.useCases";
+import { useContext} from "react";
+import { PopUpContext, UseCaseContext } from "@/contexts/contextsProvider";
 
 export const Menu = () => {
-  const guestUseCases = useRef(new GuestUseCases()).current;
+  const gatewayUseCase = useContext(UseCaseContext);
+  const { setFailPopUp, setSuccessPopUp } = useContext(PopUpContext);
+
+  const createGuest = async () => {
+    const response = await gatewayUseCase?.guestUseCases.createGuest();
+    if(response?.status === 'Failure'){
+      return setFailPopUp()
+    }
+    setSuccessPopUp()
+  };
 
   return (
     <>
-      <UiMenu>
-        <h2>Chess</h2>
-        <UiMenuBtn callback={guestUseCases.createGuest} text="New game as guest" />
+      <UiMenu title="Chess">
+        <UiMenuBtn callback={() => {}} text="Login" />
+        <UiMenuBtn callback={createGuest} text="New game as guest" />
       </UiMenu>
     </>
   );

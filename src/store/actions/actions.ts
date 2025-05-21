@@ -8,7 +8,8 @@ import { WebsocketProvider } from "@/services/websocketProvider";
 
 export class Actions{
 
-    dispatch = useAppDispatch();
+    constructor(private dispatch: ReturnType<typeof useAppDispatch>) {}
+
     websocketProvider = WebsocketProvider.getInstance();
 
     public getChess() {

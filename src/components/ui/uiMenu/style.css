@@ -23,7 +23,7 @@
     display: flex;
     flex-direction: column;
     color: white;
-    padding: 42px;
+    padding: 16px;
 }
 
 .menu-container > div {
@@ -33,4 +33,11 @@
     display: grid;
     grid-template-rows: auto;
     gap: 16px;
+}
+
+.menu-container > h2 {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 28px;
 }

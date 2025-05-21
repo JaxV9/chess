@@ -5,6 +5,7 @@
 @import url('../components/menu/style.css');
 @import url('../components/ui/uiMenu/style.css');
 @import url('../components/ui/uiMenuBtn/style.css');
+@import url('../components/ui/popUp/style.css');
 
 html,
 body {
