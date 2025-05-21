@@ -7,22 +7,14 @@ import { useContext} from "react";
 import { PopUpContext } from "@/contexts/contextsProvider";
 
 export const Menu = () => {
-  const { setPopUpState } = useContext(PopUpContext);
+  const { setFailPopUp, setSuccessPopUp } = useContext(PopUpContext);
 
   const createGuest = async () => {
     const response = await guestUseCases.createGuest();
     if(response.status === 'Failure'){
-      setPopUpState(prev => ({
-        ...prev,
-        message: [...prev.message, "Failure"],
-        type: null,
-      }));
+      return setFailPopUp()
     }
-    setPopUpState(prev => ({
-      ...prev,
-      message: [...prev.message, "Success"],
-      type: null,
-    }));
+    setSuccessPopUp()
   };
 
   return (

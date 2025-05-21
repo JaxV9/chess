@@ -1,5 +1,5 @@
 'use client'
-import React, { createContext, ReactNode, useEffect, useState } from "react";
+import React, { createContext, ReactNode, useState } from "react";
 import StoreProvider from "./StoreProvider";
 
 type PopUp = {
@@ -16,22 +16,39 @@ export const popUpInit: PopUp = {
 };
 export const PopUpContext = createContext<{
   popUpState: PopUp;
-  setPopUpState: React.Dispatch<React.SetStateAction<PopUp>>;
+  setPopUpState:  React.Dispatch<React.SetStateAction<PopUp>>;
+  setFailPopUp: () => void;
+  setSuccessPopUp: () => void;
 }>({
   popUpState: popUpInit,
   setPopUpState: () => {},
+  setFailPopUp: () => {},
+  setSuccessPopUp: () => {},
 });
 
 export default function ContextsProvider({ children }: ContextProps) {
   const [popUpState, setPopUpState] = useState<PopUp>(popUpInit);
 
-  useEffect(() => {
-    console.log(popUpState)
-  },[popUpState])
+  function setFailPopUp(){
+    setPopUpState(prev => ({
+      ...prev,
+      message: [...prev.message, "Failure"],
+      type: null,
+    }));
+  }
+
+  function setSuccessPopUp() {
+    setPopUpState(prev => ({
+      ...prev,
+      message: [...prev.message, "Success"],
+      type: null,
+    }));
+  }
+
   return (
     <>
       <StoreProvider>
-        <PopUpContext.Provider value={{ popUpState, setPopUpState }}>
+        <PopUpContext.Provider value={{ popUpState, setPopUpState, setFailPopUp, setSuccessPopUp }}>
           {children}
         </PopUpContext.Provider>
       </StoreProvider>
