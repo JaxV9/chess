@@ -5,14 +5,23 @@ import { useContext, useEffect, useState } from "react";
 export const PopupUi = () => {
   const { popUpState, setPopUpState } = useContext(PopUpContext);
 
-  const [isFadeOut, setIsFadeOut] = useState<boolean>(false);
+  const [isFadeOut, setIsFadeOut] = useState<boolean[]>([]);
 
   useEffect(() => {
+    if (popUpState.message.length === 0) return;
+    const index = popUpState.message.length - 1;
     const fade = setTimeout(() => {
-      setIsFadeOut(true);
+      setIsFadeOut((prev) => {
+        const updated = [...prev];
+        updated[index] = true;
+        return updated;
+      });
     }, 3000);
+
     const reset = setTimeout(() => {
-      setIsFadeOut(false);
+      setIsFadeOut((prev) => {
+        return [...prev].splice(0,1);
+      });
       setPopUpState((prev) => ({
         ...prev,
         message: prev.message.slice(1),
@@ -22,17 +31,20 @@ export const PopupUi = () => {
       clearTimeout(fade);
       clearTimeout(reset);
     };
-  }, [popUpState]);
+  }, [popUpState.message.length]);
 
   return (
     <>
-      {popUpState.message?.length > 0 ?
-          popUpState.message.map((element, index) => (
-            <div key={index} className={isFadeOut ? "popUpContainerFadeOut" : "popUpContainer"}>
-              <p>{element}</p>
-            </div>
-          ))
-        : null}
+      <div className="pop-up-container">
+        {popUpState.message?.length > 0
+          ? popUpState.message.map((element, index) => (
+              <div key={index}
+                className={isFadeOut[index] ? "pop-up-fade-out" : "pop-up"}>
+                <p>{element}</p>
+              </div>
+            ))
+          : null}
+      </div>
     </>
   );
 };
