@@ -1,0 +1,34 @@
+.popUpContainer, .popUpContainerFadeOut {
+    min-width: 200px;
+    width: fit-content;
+    height: fit-content;
+    padding: 12px 32px;
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    border-radius: 8px;
+    animation: fadeIn 0.2s ease-in;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    z-index: 10;
+    background-color: #2C2638;
+}
+
+.popUpContainerFadeOut {
+    opacity: 0;
+    transition: all ease 1s;
+}
+
+.popUpContainer > p, .popUpContainerFadeOut > p {
+    font-size: 18px;
+    color: #fcfbfb;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
