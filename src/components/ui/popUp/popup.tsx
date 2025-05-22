@@ -1,5 +1,5 @@
 "use client";
-import { PopUpContext } from "@/contexts/contextsProvider";
+import { PopUpContext } from "@/contexts/contexts";
 import { useContext, useEffect, useState } from "react";
 
 export const PopupUi = () => {

@@ -12,7 +12,7 @@ type SquarePropsType = {
     clearPreviewProps: () => void,
     previewedSquareProps: number[] | null,
     moveProps: (squareIndex: number, currentPiece: ChessPiece | null) => void,
-    moveIsValidProps: boolean | null,
+    moveIsValidProps: boolean | undefined,
     moveStopProps: () => void
 }
 

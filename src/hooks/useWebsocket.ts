@@ -1,10 +1,11 @@
-import { UseCaseContext } from "@/contexts/contextsProvider";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
+import useUseCase from "./useUseCase";
 
 const useWebSocket = () => {
-  const gatewayUseCase = useContext(UseCaseContext);
+  const { gatewayUseCase } = useUseCase();
+
   useEffect(() => {
-    gatewayUseCase?.playerUseCases.getChess();
+    gatewayUseCase.playerUseCases.getChess();
   });
 };
 

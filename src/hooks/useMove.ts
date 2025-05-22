@@ -1,11 +1,10 @@
-import { useContext, useEffect, useState } from "react";
 import { ChessPiece } from "@/models/models";
-import { UseCaseContext } from "@/contexts/contextsProvider";
-
+import useUseCase from "./useUseCase";
+import { useEffect, useState } from "react";
 
 const useMove = () => {
 
-    const gatewayUseCase = useContext(UseCaseContext);
+    const { gatewayUseCase } = useUseCase();
     
     const [currentPiece, setCurrentPiece] = useState<ChessPiece | null>(null)
     const [firstSquareTriggered, setFirstSquareTriggered] = useState<number | null>(null)
@@ -60,7 +59,7 @@ const useMove = () => {
     //Check if the player move is valid
     useEffect(() => {
         if(nextPos && currentPiece){
-            return setMoveIsValid(gatewayUseCase?.gameEngineUseCases.checkIfMoveIsValide(currentPiece, nextPos))
+            return setMoveIsValid(gatewayUseCase.gameEngineUseCases.checkIfMoveIsValide(currentPiece, nextPos))
         }
     },[nextPos, currentPiece])
 
@@ -88,7 +87,7 @@ const useMove = () => {
 
     useEffect(() => {
         if (chessMod) {
-            gatewayUseCase?.playerUseCases.updateChessPosition(chessMod);
+            gatewayUseCase.playerUseCases.updateChessPosition(chessMod);
             setChessMod(null)
         }
     }, [chessMod, setChessMod])
