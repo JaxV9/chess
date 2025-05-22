@@ -22,4 +22,4 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## Architecture
 
-![alt text](image.png)
+![alt text](architecture.png)
