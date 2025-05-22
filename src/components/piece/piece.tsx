@@ -1,5 +1,5 @@
 "use client";
-import useCurrentImagePiece from "@/hooks/useCurrentImagePiece";
+import useCurrentImagePiece from "@/hooks/pieces/useCurrentImagePiece";
 import { ChessPiece } from "@/models/models";
 
 type PiecePropsType = {

@@ -1,15 +1,15 @@
-import pawnBlack from "../assets/pieces/pawn-black.svg";
-import pawnWhite from "../assets/pieces/pawn-white.svg";
-import bishopBlack from "../assets/pieces/bishop-black.svg"
-import bishopWhite from "../assets/pieces/bishop-white.svg";
-import kingBlack from "../assets/pieces/king-black.svg";
-import kingWhite from "../assets/pieces/king-white.svg";
-import queenBlack from "../assets/pieces/queen-black.svg";
-import queenWhite from "../assets/pieces/queen-white.svg";
-import knightBlack from "../assets/pieces/knight-black.svg";
-import knightWhite from "../assets/pieces/knight-white.svg";
-import rookBlack from "../assets/pieces/rook-black.svg";
-import rookWhite from "../assets/pieces/rook-white.svg"
+import pawnBlack from "../../assets/pieces/pawn-black.svg";
+import pawnWhite from "../../assets/pieces/pawn-white.svg";
+import bishopBlack from "../../assets/pieces/bishop-black.svg"
+import bishopWhite from "../../assets/pieces/bishop-white.svg";
+import kingBlack from "../../assets/pieces/king-black.svg";
+import kingWhite from "../../assets/pieces/king-white.svg";
+import queenBlack from "../../assets/pieces/queen-black.svg";
+import queenWhite from "../../assets/pieces/queen-white.svg";
+import knightBlack from "../../assets/pieces/knight-black.svg";
+import knightWhite from "../../assets/pieces/knight-white.svg";
+import rookBlack from "../../assets/pieces/rook-black.svg";
+import rookWhite from "../../assets/pieces/rook-white.svg"
 import { ChessPiece } from "@/models/models";
 
 const useCurrentImagePiece = (currentPiece: ChessPiece) => {

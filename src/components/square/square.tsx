@@ -1,9 +1,9 @@
 "use client";
 import { Piece } from "../piece/piece";
 import { ChessPiece } from "@/models/models";
-import useCurrentPiece from "@/hooks/useCurrentPiece";
-import useSquareColor from "@/hooks/useSquareColor";
-import useSquarePreviewState from "@/hooks/useSquarePreviewState";
+import useCurrentPiece from "@/hooks/pieces/useCurrentPiece";
+import useSquareColor from "@/hooks/squares/useSquareColor";
+import useSquarePreviewState from "@/hooks/squares/useSquarePreviewState";
 import { useEffect } from "react";
 
 type SquarePropsType = {

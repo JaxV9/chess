@@ -1,5 +1,5 @@
 import { ChessPiece } from "@/models/models";
-import useUseCase from "./useUseCase";
+import useUseCase from "../useUseCase";
 import { useEffect, useState } from "react";
 
 const useMove = () => {

@@ -1,6 +1,6 @@
 import { useAppSelector } from "@/store/hooks"
 import { ChessPiece } from "@/models/models"
-import useUseCase from "./useUseCase";
+import useUseCase from "../useUseCase";
 
 const useSquaresPreview = () => {
 
