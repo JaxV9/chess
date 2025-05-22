@@ -1,16 +1,19 @@
 "use client";
 
+import { PopUpContext } from "@/contexts/contexts";
 import { UiMenu } from "../ui/uiMenu/uiMenu";
 import { UiMenuBtn } from "../ui/uiMenuBtn/uiMenuBtn";
 import { useContext} from "react";
-import { PopUpContext, UseCaseContext } from "@/contexts/contextsProvider";
+import useUseCase from "@/hooks/useUseCase";
 
 export const Menu = () => {
-  const gatewayUseCase = useContext(UseCaseContext);
+
+  const { gatewayUseCase } = useUseCase();
+
   const { setFailPopUp, setSuccessPopUp } = useContext(PopUpContext);
 
   const createGuest = async () => {
-    const response = await gatewayUseCase?.guestUseCases.createGuest();
+    const response = await gatewayUseCase.guestUseCases.createGuest();
     if(response?.status === 'Failure'){
       return setFailPopUp()
     }

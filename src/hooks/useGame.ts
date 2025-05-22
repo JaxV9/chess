@@ -1,17 +1,16 @@
-import { UseCaseContext } from "@/contexts/contextsProvider";
 import { Game } from "@/models/models";
 import { useAppSelector } from "@/store/hooks";
-import { useContext } from "react";
+import useUseCase from "./useUseCase";
 
 
 const useGame = () => {
 
-    const gatewayUseCase = useContext(UseCaseContext);
+    const { gatewayUseCase } = useUseCase();
 
     const gameInfo = useAppSelector((state) => state.gameEngine.game);
 
     const newGame = (newGame: Game) => {
-        gatewayUseCase?.playerUseCases.startGame(newGame);
+        gatewayUseCase.playerUseCases.startGame(newGame);
     }
 
     return {
