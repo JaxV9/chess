@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface PreviewsState {
+export type PreviewsState = {
   previewedSquares: number[] | null;
 }
 

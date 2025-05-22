@@ -7,9 +7,10 @@ export type ChessPiece = {
 
 export type Player = {
     id: string
-    name: string;
-    team: "white" | 'black',
-    ChessPiecesCaptured: ChessPiece[] | null,
+    username: string;
+    team?: "white" | 'black',
+    ChessPiecesCaptured?: ChessPiece[] | null,
+    isGuest: boolean;
 }
 
 export type Move = {

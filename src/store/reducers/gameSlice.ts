@@ -1,7 +1,7 @@
 import { Game } from '@/models/models';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface GameState {
+export type GameState = {
   game: Game | null
 }
 

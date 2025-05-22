@@ -13,8 +13,8 @@ export const Menu = () => {
   const { setFailPopUp, setSuccessPopUp } = useContext(PopUpContext);
 
   const createGuest = async () => {
-    const response = await gatewayUseCase.guestUseCases.createGuest();
-    if(response?.status === 'Failure'){
+    const response = await gatewayUseCase.playerUseCases.createPlayerAsGuest();
+    if(response === 'Failure'){
       return setFailPopUp()
     }
     setSuccessPopUp()

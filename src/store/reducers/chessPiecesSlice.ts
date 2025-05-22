@@ -1,7 +1,7 @@
 import { ChessPiece } from '@/models/models';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface ChessState {
+export type ChessState = {
   pieces: ChessPiece[];
 }
 

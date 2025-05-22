@@ -1,14 +1,24 @@
-import { useAppDispatch } from "../hooks";
-import { loadChessPosition } from "../reducers/chessPiecesSlice";
-import { updatePreviewedSquares } from "../reducers/previewedSquaresSlice";
-import { ChessPiece, Game } from "@/models/models";
-import { startGame } from "../reducers/gameSlice";
+import { ChessState, loadChessPosition } from "../reducers/chessPiecesSlice";
+import { PreviewsState, updatePreviewedSquares } from "../reducers/previewedSquaresSlice";
+import { ChessPiece, Game, Player } from "@/models/models";
+import { GameState, startGame } from "../reducers/gameSlice";
 import { WebsocketProvider } from "@/services/websocketProvider";
+import { AppDispatch } from "../store";
+import { PlayerState, putPlayer } from "../reducers/playerSlice";
+import { UseSelector } from "react-redux";
 
 
 export class Actions{
 
-    constructor(private dispatch: ReturnType<typeof useAppDispatch>) {}
+    constructor(
+        private dispatch: AppDispatch,
+        private useAppSelector: UseSelector<{
+            chessPieces: ChessState;
+            previewedSquares: PreviewsState;
+            gameEngine: GameState;
+            player: PlayerState;
+        }>
+    ) {}
 
     websocketProvider = WebsocketProvider.getInstance();
 
@@ -35,6 +45,15 @@ export class Actions{
 
     public startGame(newGame: Game) {
         this.dispatch(startGame({newGame}))
+    }
+
+    public putPlayer(player: Player) {
+        this.dispatch(putPlayer({player}));
+    }
+
+    public getPlayer(){
+        const player = this.useAppSelector((state) => state.player.player);
+        return player;
     }
 
 }
