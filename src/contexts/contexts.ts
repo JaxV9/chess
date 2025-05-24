@@ -15,8 +15,8 @@ export const popUpInit: PopUp = {
 export const PopUpContext = createContext<{
   popUpState: PopUp;
   setPopUpState: React.Dispatch<React.SetStateAction<PopUp>>;
-  setFailPopUp: () => void;
-  setSuccessPopUp: () => void;
+  setFailPopUp: (message: string) => void;
+  setSuccessPopUp: (message: string) => void;
 }>({
   popUpState: popUpInit,
   setPopUpState: () => {},

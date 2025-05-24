@@ -1,6 +1,7 @@
 "use client";
 import useCurrentImagePiece from "@/hooks/pieces/useCurrentImagePiece";
 import { ChessPiece } from "@/models/models";
+import "./style.css";
 
 type PiecePropsType = {
     currentPieceProps: ChessPiece,

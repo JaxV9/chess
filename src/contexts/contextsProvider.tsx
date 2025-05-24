@@ -10,18 +10,18 @@ type ContextProps = {
 export default function ContextsProvider({ children }: ContextProps) {
   const [popUpState, setPopUpState] = useState<PopUp>(popUpInit);
 
-  function setFailPopUp() {
+  function setFailPopUp(message: string) {
     setPopUpState((prev) => ({
       ...prev,
-      message: [...prev.message, "Failure"],
+      message: [...prev.message, message],
       type: null,
     }));
   }
 
-  function setSuccessPopUp() {
+  function setSuccessPopUp(message: string) {
     setPopUpState((prev) => ({
       ...prev,
-      message: [...prev.message, "Success"],
+      message: [...prev.message, message],
       type: null,
     }));
   }

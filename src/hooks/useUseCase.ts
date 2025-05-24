@@ -14,8 +14,9 @@ import { Http } from "@/utils";
 
 const useUseCase = () => {
     const dispatch = useAppDispatch();
+    const selector = useAppSelector(state => state);
     const http = new Http();
-    const actions = new Actions(dispatch, useAppSelector);
+    const actions = new Actions(dispatch, selector);
 
     const rookDomain = new RookDomain();
     const pawnDomain = new PawnDomain();
@@ -37,7 +38,7 @@ const useUseCase = () => {
         playerUseCases, gameEngineUseCases
     )
 
-    return { gatewayUseCase };
+    return { gatewayUseCase, selector };
 };
 
 export default useUseCase;

@@ -1,4 +1,5 @@
 "use client";
+import "./style.css";
 import { PopUpContext } from "@/contexts/contexts";
 import { useContext, useEffect, useState } from "react";
 

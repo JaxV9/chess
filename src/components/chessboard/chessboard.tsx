@@ -3,6 +3,7 @@ import { Square } from "../square/square";
 import { ChessboardInfos } from "../ui/chessboardInfos/chessboardInfos";
 import useSquaresPreview from "@/hooks/squares/useSquaresPreview";
 import useMove from "@/hooks/player/useMove";
+import "./style.css";
 
 
 export const Chessboard = () => {

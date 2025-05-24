@@ -5,19 +5,17 @@ import { GameState, startGame } from "../reducers/gameSlice";
 import { WebsocketProvider } from "@/services/websocketProvider";
 import { AppDispatch } from "../store";
 import { PlayerState, putPlayer } from "../reducers/playerSlice";
-import { UseSelector } from "react-redux";
-
 
 export class Actions{
 
     constructor(
         private dispatch: AppDispatch,
-        private useAppSelector: UseSelector<{
-            chessPieces: ChessState;
-            previewedSquares: PreviewsState;
+        private selector: {
+            chessPieces: ChessState,
+            previewedSquares: PreviewsState,
             gameEngine: GameState;
             player: PlayerState;
-        }>
+        }
     ) {}
 
     websocketProvider = WebsocketProvider.getInstance();
@@ -52,7 +50,7 @@ export class Actions{
     }
 
     public getPlayer(){
-        const player = this.useAppSelector((state) => state.player.player);
+        const player = this.selector.player.player;
         return player;
     }
 

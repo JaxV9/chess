@@ -67,6 +67,10 @@ export class PlayerUseCases {
     this.actions.startGame(newGame);
   }
 
+  private putPlayer(player: Player) {
+    return this.actions.putPlayer(player);
+  }
+
   async createPlayerAsGuest(): Promise<Success | Failure> {
     const response = await this.guestServices.createGuest();
     if (response.status === "Failure") {

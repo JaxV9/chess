@@ -1,4 +1,5 @@
 "use client";
+import "./style.css";
 
 type UiMenuBtnProps = {
     text: string,

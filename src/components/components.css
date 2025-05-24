@@ -1,0 +1,9 @@
+@import url('./chessboard/style.css');
+@import url('./square/style.css');
+@import url('./ui/chessboardInfos/style.css');
+@import url('./piece/style.css');
+@import url('./menu/style.css');
+@import url('./ui/uiMenu/style.css');
+@import url('./ui/uiMenuBtn/style.css');
+@import url('./ui/popUp/style.css');
+@import url('./ui/playerStatus/style.css');

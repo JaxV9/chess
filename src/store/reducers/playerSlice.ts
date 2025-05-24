@@ -16,7 +16,8 @@ const playerSlice = createSlice({
     putPlayer: (state, action: PayloadAction<{player: Player}>) => {
         const { player } = action.payload;
         state.player = player;
-    }
+        console.log(state.player)
+    },
   },
 });
 

@@ -5,6 +5,7 @@ import useCurrentPiece from "@/hooks/pieces/useCurrentPiece";
 import useSquareColor from "@/hooks/squares/useSquareColor";
 import useSquarePreviewState from "@/hooks/squares/useSquarePreviewState";
 import { useEffect } from "react";
+import "./style.css";
 
 type SquarePropsType = {
     indexProps: number,
