@@ -5,12 +5,14 @@ import { UiMenu } from "../ui/uiMenu/uiMenu";
 import { UiMenuBtn } from "../ui/uiMenuBtn/uiMenuBtn";
 import { useContext, useState } from "react";
 import useUseCase from "@/hooks/useUseCase";
+import { CopyField } from "../ui/copyField/copyField";
 
 export const Menu = () => {
   const { gatewayUseCase } = useUseCase();
   const { setFailPopUp, setSuccessPopUp } = useContext(PopUpContext);
 
   const [hasAPlayerSession, setHasAPlayerSession] = useState<boolean>(false);
+  const [gameSessionGenerated, setGameSessionGenerated] = useState<boolean | null>(null);
 
   const createGuest = async () => {
     const response = await gatewayUseCase.playerUseCases.createPlayerAsGuest();
@@ -21,21 +23,35 @@ export const Menu = () => {
     setHasAPlayerSession(true);
   };
 
-  const getPlayer = () => {
-    console.log(gatewayUseCase.playerUseCases.getPlayer())
-  }
+  const generateGameSession = async () => {
+    const response = await gatewayUseCase.playerUseCases.newGuestGame();
+    if (response === "Failure") {
+      return setFailPopUp("You can't create a game session");
+    }
+    setSuccessPopUp("Game session created");
+    setGameSessionGenerated(true)
+  };
 
   return (
     <>
       <UiMenu title="Chess">
-        {!hasAPlayerSession ? (
+        {/* login or create guest session */}
+        {!hasAPlayerSession && (
           <>
-            <UiMenuBtn callback={() => {}} text="Login" />
-            <UiMenuBtn callback={createGuest} text="New game as guest" />
+            <UiMenuBtn callback={createGuest} text="New game as a guest" />
           </>
-        ) : (
+        )}
+        {/* New game with a friend or a random guy */}
+        {hasAPlayerSession && !gameSessionGenerated && (
           <>
-            <UiMenuBtn callback={getPlayer} text="New game" />
+            <UiMenuBtn callback={generateGameSession} text="Play locally with a friend" />
+            <UiMenuBtn callback={() => {}} isReturn={true} text="Cancel" />
+          </>
+        )}
+        {gameSessionGenerated && (
+          <>
+            <p>{}</p>
+            <CopyField field={gatewayUseCase.gameEngineUseCases.getTokenGameSession()} />
           </>
         )}
       </UiMenu>

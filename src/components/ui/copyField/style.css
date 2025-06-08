@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    border: 1px solid white;
+    padding: 16px;
+    border-radius: 8px;
+    transition: all ease 0.2s;
+    cursor: pointer;
+}
+
+.container:hover {
+    scale: 1.02;
+    transition: all ease 0.2s;
+}
+
+.field {
+    font-size: 18px;
+    margin: auto;
+}
+
+.copy-icon,
+.copy-check {
+    width: 32px;
+    height: 32px;
+    margin: auto;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.copy-icon {
+    background-image: url("/copy.svg");
+
+}
+
+.copy-check {
+    background-image: url("/copyCheck.svg");
+}

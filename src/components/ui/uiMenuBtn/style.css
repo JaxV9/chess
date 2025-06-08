@@ -16,3 +16,14 @@
     scale: 1.01;
     transition: all ease 0.2s;
 }
+
+.return {
+    background-color: grey;
+    margin-top: 16px;
+}
+
+.return:hover {
+    background-color: rgba(155, 155, 155, 0.745);
+    scale: 1.01;
+    transition: all ease 0.2s;
+}
