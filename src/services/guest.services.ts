@@ -5,12 +5,22 @@ export type CreateGuest = {
   username: string,
 }
 
+export type GameSession = {
+  game_session: string,
+}
+
 export class GuestServices {
   constructor(private http: Http) {}
 
   async createGuest(): Promise<ResAction> {
     const response = await this.http.post("guest");
     response.payload as unknown as CreateGuest
+    return response
+  }
+
+  async newGameSession(): Promise<ResAction> {
+    const response =  await this.http.post("guest/gamesession");
+    response.payload as unknown as GameSession
     return response
   }
 }

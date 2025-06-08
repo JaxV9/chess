@@ -31,7 +31,7 @@ const useUseCase = () => {
     actions, rookDomain, pawnDomain, knightDomain, bishopDomain, queenDomain, kingDomain, guestServices
     );
     const gameEngineUseCases = new GameEngineUseCases(
-    rookDomain, pawnDomain, knightDomain, bishopDomain, queenDomain, kingDomain
+    actions, rookDomain, pawnDomain, knightDomain, bishopDomain, queenDomain, kingDomain
     );
 
     const gatewayUseCase = new GatewayUseCase(

@@ -1,7 +1,7 @@
 import { ChessState, loadChessPosition } from "../reducers/chessPiecesSlice";
 import { PreviewsState, updatePreviewedSquares } from "../reducers/previewedSquaresSlice";
 import { ChessPiece, Game, Player } from "@/models/models";
-import { GameState, startGame } from "../reducers/gameSlice";
+import { GameState, putTokenGameSession, startGame } from "../reducers/gameSlice";
 import { WebsocketProvider } from "@/services/websocketProvider";
 import { AppDispatch } from "../store";
 import { PlayerState, putPlayer } from "../reducers/playerSlice";
@@ -52,6 +52,16 @@ export class Actions{
     public getPlayer(){
         const player = this.selector.player.player;
         return player;
+    }
+
+    public putTokenGameSession(token: string): void {
+        this.dispatch(putTokenGameSession({token}));
+    }
+
+    public getTokenGameSession(): string {
+        const token = this.selector.gameEngine.tokenGameSession;
+        if(!token) return ''
+        return token;
     }
 
 }

@@ -13,6 +13,10 @@ export type Player = {
     isGuest: boolean;
 }
 
+export type tokenGameSession = {
+    game_session: string
+}
+
 export type Move = {
     chessPieceId: string,
     player: Player,

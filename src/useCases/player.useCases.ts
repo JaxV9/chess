@@ -1,5 +1,5 @@
 import { PieceRole } from "@/constants/constants";
-import { ChessPiece, Game, Player } from "@/models/models";
+import { ChessPiece, Game, Player, tokenGameSession } from "@/models/models";
 import { Actions } from "@/store/actions/actions";
 import { RookDomain } from "./domain/pieces/rook";
 import { PawnDomain } from "./domain/pieces/pawn";
@@ -67,10 +67,6 @@ export class PlayerUseCases {
     this.actions.startGame(newGame);
   }
 
-  private putPlayer(player: Player) {
-    return this.actions.putPlayer(player);
-  }
-
   async createPlayerAsGuest(): Promise<Success | Failure> {
     const response = await this.guestServices.createGuest();
     if (response.status === "Failure") {
@@ -78,10 +74,10 @@ export class PlayerUseCases {
     }
     const payload = response.payload as Player;
     const player = {
-        id: payload.id,
-        username: payload.username,
-        isGuest: true,
-      }
+      id: payload.id,
+      username: payload.username,
+      isGuest: true,
+    };
     this.actions.putPlayer(player);
     localStorage.setItem("player", JSON.stringify(player));
     return response.status;
@@ -89,5 +85,15 @@ export class PlayerUseCases {
 
   getPlayer(): Player | null {
     return this.actions.getPlayer();
+  }
+
+  async newGuestGame(): Promise<Success | Failure> {
+    const response = await this.guestServices.newGameSession();
+    if (response.status === "Failure") {
+      return response.status;
+    }
+    const payload = response.payload as unknown as tokenGameSession;
+    this.actions.putTokenGameSession(payload.game_session)
+    return response.status;
   }
 }

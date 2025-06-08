@@ -2,11 +2,13 @@ import { Game } from '@/models/models';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type GameState = {
-  game: Game | null
+  game: Game | null,
+  tokenGameSession: string | null,
 }
 
 const initialState: GameState = {
-    game: null
+    game: null,
+    tokenGameSession: null
 };
 
 const gameSlice = createSlice({
@@ -17,9 +19,13 @@ const gameSlice = createSlice({
       const { newGame } = action.payload
       state.game = newGame;
     },
+    putTokenGameSession: (state, action: PayloadAction<{token: string}>) => {
+      const { token } = action.payload;
+      state.tokenGameSession = token;
+    }
   },
 });
 
-export const { startGame } = gameSlice.actions;
+export const { startGame, putTokenGameSession } = gameSlice.actions;
 
 export const gameEngineReducer = gameSlice.reducer;
