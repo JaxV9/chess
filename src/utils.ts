@@ -8,7 +8,7 @@ export type ResAction = {
 };
 
 export class Http {
-  constructor(private baseUrl: string = "http://127.0.0.1:8000/") {}
+constructor(private baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL) {}
 
   async post(path: string, payload?: object | null): Promise<ResAction> {
     try {
