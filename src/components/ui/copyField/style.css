@@ -3,7 +3,7 @@
     flex-direction: row;
     gap: 16px;
     border: 1px solid white;
-    padding: 16px;
+    padding: 8px;
     border-radius: 8px;
     transition: all ease 0.2s;
     cursor: pointer;
@@ -15,14 +15,14 @@
 }
 
 .field {
-    font-size: 18px;
+    font-size: 14px;
     margin: auto;
 }
 
 .copy-icon,
 .copy-check {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     margin: auto;
     background-repeat: no-repeat;
     background-size: contain;

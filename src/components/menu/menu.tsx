@@ -3,14 +3,19 @@
 import { PopUpContext } from "@/contexts/contexts";
 import { UiMenu } from "../ui/uiMenu/uiMenu";
 import { UiMenuBtn } from "../ui/uiMenuBtn/uiMenuBtn";
-import { useContext, useState } from "react";
+import { use, useEffect, useState } from "react";
 import useUseCase from "@/hooks/useUseCase";
 import { CopyField } from "../ui/copyField/copyField";
+import { MenuLabel } from "../ui/menuLabel/menuLabel";
+import { useRouter } from "next/navigation";
 
 export const Menu = () => {
   const { gatewayUseCase } = useUseCase();
-  const { setFailPopUp, setSuccessPopUp } = useContext(PopUpContext);
+  const { setFailPopUp, setSuccessPopUp } = use(PopUpContext);
+  const router = useRouter();
 
+  const token = gatewayUseCase.gameEngineUseCases.getTokenGameSession();
+  const [gameSessionLink, setGameSessionLink] = useState<string>("");
   const [hasAPlayerSession, setHasAPlayerSession] = useState<boolean>(false);
   const [gameSessionGenerated, setGameSessionGenerated] = useState<boolean | null>(null);
 
@@ -32,6 +37,13 @@ export const Menu = () => {
     setGameSessionGenerated(true)
   };
 
+  useEffect(() => {
+  if (typeof window !== "undefined") {
+    const baseUrl = window.location.origin;
+    setGameSessionLink(`${baseUrl}/game/${token}`);
+  }
+}, [token]);
+
   return (
     <>
       <UiMenu title="Chess">
@@ -50,8 +62,9 @@ export const Menu = () => {
         )}
         {gameSessionGenerated && (
           <>
-            <p>{}</p>
-            <CopyField field={gatewayUseCase.gameEngineUseCases.getTokenGameSession()} />
+            <MenuLabel text="Share the link with your friend" />
+            <CopyField field={gameSessionLink} />
+            <UiMenuBtn callback={() => router.push(gameSessionLink)} text="Join Game" />
           </>
         )}
       </UiMenu>

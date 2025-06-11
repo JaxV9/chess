@@ -1,10 +1,10 @@
 "use client";
 import "./style.css";
 import { PopUpContext } from "@/contexts/contexts";
-import { useContext, useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 
 export const PopupUi = () => {
-  const { popUpState, setPopUpState } = useContext(PopUpContext);
+  const { popUpState, setPopUpState } = use(PopUpContext);
 
   const [isFadeOut, setIsFadeOut] = useState<boolean[]>([]);
 
